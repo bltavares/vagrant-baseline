@@ -1,5 +1,6 @@
 class baseline {
 
+  include git
   include apt::update
 
   $vagrant_home = "/home/vagrant"
@@ -8,7 +9,6 @@ class baseline {
     'curl',
     'emacs',
     'gawk',
-    'git-core',
     'meld',
     'mplayer',
     'vim-gnome',
@@ -19,7 +19,7 @@ class baseline {
   package {
     $packages:
     ensure => 'latest',
-    require => Exec['apt_update'],
+    require => [Class[apt::update], Package['git-core']],
       ;
   }
 
