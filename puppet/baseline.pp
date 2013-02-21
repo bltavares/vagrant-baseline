@@ -23,7 +23,10 @@ node default {
   }
 
   if $hostname =~ /nodejs/ {
-    include nodejs
+    apt::ppa { "ppa:chris-lea/node.js": }
+    class { 'nodejs': 
+      require => Apt::Ppa["ppa:chris-lea/node.js"]
+    }
   }
 
   include baseline
