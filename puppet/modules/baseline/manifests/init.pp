@@ -2,6 +2,7 @@ class baseline {
 
   include apt::update
 
+  $vagrant_home = "/home/vagrant"
   $packages = [
     'aptitude',
     'curl',
@@ -26,22 +27,24 @@ class baseline {
 
   exec {
     'set up default settings':
-    command => 'curl https://gist.github.com/bltavares/2706792/raw/post-install.sh | bash',
-    cwd     => '/home/vagrant',
+    command => "bash -c 'HOME=${vagrant_home} curl https://gist.github.com/bltavares/2706792/raw/post-install.sh | bash'",
+    cwd     => $vagrant_home,
+    creates => "${vagrant_home}/.Xmodmap",
     require => [Package['curl'], Package['git-core']],
     user    => 'vagrant',
     ;
 
   'download dot-files':
-    command => 'git clone https://github.com/bltavares/dot-files.git /home/vagrant/dot-files',
-    creates => '/home/vagrant/dot-files',
+    command => "git clone https://github.com/bltavares/dot-files.git ${vagrant_home}/dot-files",
+    creates => "${vagrant_home}/dot-files",
     require => Exec['set up default settings'],
     user    => 'vagrant',
     ;
 
   'install-dot-files':
-    command => 'bash -c "HOME=/home/vagrant ./install.sh"',
-    cwd     => '/home/vagrant/dot-files',
+    command => 'bash -c "HOME=${vagrant_home} ./install.sh"',
+    cwd     => "${vagrant_home}/dot-files",
+    creates => "${vagrant_home}/.oh-my-zsh",
     require => Exec['download dot-files'],
     user    => 'vagrant',
     ;
