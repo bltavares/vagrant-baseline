@@ -8,10 +8,7 @@ class baseline {
     'curl',
     'emacs',
     'gawk',
-    'meld',
-    'mplayer',
-    'vim-gnome',
-    'vim-gtk',
+    'vim',
     'zsh',
   ]
 
