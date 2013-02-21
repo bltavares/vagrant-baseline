@@ -1,10 +1,6 @@
 class baseline {
 
-  class { 'apt':
-    stage             => 'bootstrap',
-    always_apt_update => true,
-    ;
-  }
+  include apt::update
 
   $packages = [
     'aptitude',
@@ -21,7 +17,8 @@ class baseline {
 
   package {
     $packages:
-    ensure => 'latest'
+    ensure => 'latest',
+    require => Exec['apt_update'],
       ;
   }
 

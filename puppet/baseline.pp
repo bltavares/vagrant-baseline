@@ -1,10 +1,8 @@
-stage {
-  'bootstrap':
-    before => Stage['main']
-    ;
+node default {
+  include baseline
 }
 
-
-node default {
+node "java" {
+  include java7
   include baseline
 }

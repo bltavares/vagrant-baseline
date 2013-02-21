@@ -71,10 +71,12 @@ Vagrant::Config.run do |config|
   # # }
   options = {
     module_path: 'puppet/modules',
+    options:     ['--verbose', '--debug'],
     facter:      { fqdn: 'precise.vagrant' }
   }
 
   config.vm.provision :puppet, options do |puppet|
+
     puppet.manifests_path = 'puppet'
     puppet.manifest_file  = 'baseline.pp'
   end
@@ -116,4 +118,8 @@ Vagrant::Config.run do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
+
+  config.vm.define :java do |java_config|
+    java_config.vm.host_name = "java"
+  end
 end

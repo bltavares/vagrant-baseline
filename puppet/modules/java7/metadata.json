@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "project_page": "http://github.com/softek/puppet-java7",
+  "source": "git://github.com/softek/puppet-java7.git",
+  "checksums": {
+    "Modulefile": "c3a79ce407b70e7d27e3c93f398f19fd",
+    "files/java.preseed": "7e39d91ad5e8514ea8627ba773f0d840",
+    "manifests/init.pp": "01a9ec9a475e66ed6e69e19a2d8ff452",
+    "README.md": "59beb4e499a5738aac23b59e964956b0"
+  },
+  "types": [
+
+  ],
+  "author": "Scott Smerchek",
+  "dependencies": [
+    {
+      "version_requirement": ">= 1.0.1",
+      "name": "puppetlabs/apt"
+    }
+  ],
+  "license": "",
+  "summary": "Oracle Java7 Puppet Module",
+  "description": "This module manages Oracle Java7. Tested on Ubuntu",
+  "name": "softek-java7"
+}
