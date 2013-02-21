@@ -13,6 +13,9 @@ end
 
 
 Vagrant::Config.run do |config|
+
+  config.vm.host_name = ENV["provision_name"]  || "baseline"
+
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
@@ -76,7 +79,6 @@ Vagrant::Config.run do |config|
   }
 
   config.vm.provision :puppet, options do |puppet|
-
     puppet.manifests_path = 'puppet'
     puppet.manifest_file  = 'baseline.pp'
   end
@@ -119,7 +121,4 @@ Vagrant::Config.run do |config|
   #
   #   chef.validation_client_name = "ORGNAME-validator"
 
-  config.vm.define :java do |java_config|
-    java_config.vm.host_name = "java"
-  end
 end
