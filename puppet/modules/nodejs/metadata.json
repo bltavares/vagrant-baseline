@@ -1,0 +1,44 @@
+{
+  "name": "puppetlabs-nodejs",
+  "version": "0.2.1",
+  "source": "git://github.com/puppetlabs/puppetlabs-nodejs",
+  "author": "Puppet Labs",
+  "license": "Apache 2.0",
+  "summary": "Nodejs & NPM Puppet Module",
+  "description": "Nodejs & NPM Puppet Module.",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-nodejs",
+  "dependencies": [
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": ">= 0.0.3"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 2.0.0"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "CHANGELOG": "d8389e1f8e324e7b5dd4c8201a28e9e6",
+    "LICENSE": "b3f8a01d8699078d82e8c3c992307517",
+    "Modulefile": "a78b30b77bcb15ca7595d217b356adc3",
+    "README.md": "db4e5ffa9aaa9e6d7d2594c2475e7e47",
+    "Rakefile": "0254db5d3fc38c67a2c160d7296a24f8",
+    "lib/puppet/provider/package/npm.rb": "14e5a15858244609b0d71469d586a5ba",
+    "manifests/init.pp": "a1df08f6adf368de5f2bd25b4afdbbe3",
+    "manifests/npm.pp": "0f3119aa5166655b62b5b9ffaa386182",
+    "manifests/params.pp": "c30a27779b64e336a3227c55c64e8efc",
+    "spec/classes/nodejs_spec.rb": "4ef9df922c4e9e1ea5dfb0b3de9d53bb",
+    "spec/fixtures/unit/puppet/provider/pakages/npm/npm_global": "b978830ded964a9000c961528dfd6ef1",
+    "spec/puppetlabs_spec/files.rb": "5f7d2da815b3545f1e3347fac84a36c8",
+    "spec/puppetlabs_spec/fixtures.rb": "795629c4bcad28bf3bb91ff6e5ce97b1",
+    "spec/puppetlabs_spec/matchers.rb": "8e77dc7317de7fc2ff289fb716623b6c",
+    "spec/puppetlabs_spec_helper.rb": "b8e2c657fb91ba7129e679d133169986",
+    "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+    "spec/unit/puppet/provider/pakages/npm_spec.rb": "3c3eebfb16c72d6015416b32fd328338",
+    "tests/init.pp": "575b1a56d1cbce7c4fb2142b4fabc36a",
+    "tests/npm.pp": "eecedf53999fd2f11b25bd34a543c5d6"
+  }
+}

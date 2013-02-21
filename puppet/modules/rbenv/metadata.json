@@ -1,0 +1,37 @@
+{
+  "name": "jdowning/rbenv",
+  "version": "0.0.2",
+  "source": "https://github.com/justindowning/puppet-rbenv",
+  "author": "Justin Donwing",
+  "license": "Apache License, Version 2.0",
+  "summary": "Install rbenv on Ubuntu",
+  "description": "Setup rbenv for ruby management on Ubuntu",
+  "project_page": "https://github.com/justindowning/puppet-rbenv",
+  "dependencies": [
+    {
+      "name": "puppetlabs/git",
+      "version_requirement": ">= 0.0.2"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "Modulefile": "929b014d6d6d56c0d5306827844d2bbb",
+    "README": "cdd71c58c47e472b963439ae03a0643b",
+    "Vagrantfile": "79dc6b32a78368d7299d03bfd5bdd42b",
+    "manifests/build.pp": "cd250d3cbfc5d487c1f04e3c16db714f",
+    "manifests/gem.pp": "25774523460cd054a4855c61d75fae6f",
+    "manifests/init.pp": "a688079259aad149ba5c6807febd12e0",
+    "manifests/params.pp": "ca8f812d69ef2c911762860969d2d144",
+    "manifests/plugin.pp": "1bcb7598b8f9b9aef4b7ab5557dc6332",
+    "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
+    "templates/rbenv.sh": "1895fedb6a7fdc5feed9b2cbbb8bbb60",
+    "templates/ruby-build.sh.erb": "ca14655d6975d63b99fa285cf631acaf",
+    "tests/build.pp": "990d4727f781b49aca2d00e15e87d1a3",
+    "tests/gem.pp": "1a93364a9ffe103517e171a03bc8934f",
+    "tests/init.pp": "e422bddd8dc05c12ce2a46f43d3c1f16",
+    "tests/plugin.pp": "4919bff9846d38921053d1031be9d81d",
+    "tests/rbenv-vars.pp": "ea253ecb5d54da5ecb24a2001110542b"
+  }
+}
