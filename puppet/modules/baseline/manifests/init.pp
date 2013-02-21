@@ -42,6 +42,7 @@ class baseline {
   'install-dot-files':
     command => 'bash -c "HOME=/home/vagrant ./install.sh"',
     cwd     => '/home/vagrant/dot-files',
+    creates => '/home/vagrant/.zshrc',
     require => Exec['download dot-files'],
     user    => 'vagrant',
     ;
