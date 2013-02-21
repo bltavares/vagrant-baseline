@@ -74,7 +74,6 @@ Vagrant::Config.run do |config|
   # # }
   options = {
     module_path: 'puppet/modules',
-    options:     ['--verbose', '--debug'],
     facter:      { fqdn: 'precise.vagrant' }
   }
 
