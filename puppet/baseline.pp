@@ -58,5 +58,8 @@ node default {
     }
   }
 
+  if $hostname !~ /nodots/ {
+    include baseline::dotfiles
+  }
   include baseline
 }

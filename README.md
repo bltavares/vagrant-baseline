@@ -37,3 +37,9 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 * redis (2.6.10 port 6379)
 * mongo (latest from 10\_gen ppa port 27017)
 * postgre (9.2 Username: postgres Password: postgres)
+
+By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
+
+    provision_name=nodots-redis vagrant up
+
+
