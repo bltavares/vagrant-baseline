@@ -12,7 +12,10 @@ node default {
   }
 
   if $hostname =~ /ruby/  {
-    include baseline::buildessential
+    class { 'gcc': 
+      require => Class[apt::update],
+    }
+
     class { 'rbenv': }
     rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '1.9.3-p385': global => true }
 
