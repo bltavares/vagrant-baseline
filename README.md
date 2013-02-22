@@ -34,3 +34,4 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 * ruby (rbenv + ruby 1.9.3)
 * nodejs (latest from ppa:chris.lea)
 * java (7)
+* redis (2.6.10 port 6379)

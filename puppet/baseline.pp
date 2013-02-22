@@ -32,5 +32,11 @@ node default {
     }
   }
 
+  if $hostname =~ /redis/ {
+    class { 'redis':
+        version => '2.6.10',
+    } 
+  }
+
   include baseline
 }
