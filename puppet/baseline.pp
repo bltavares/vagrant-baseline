@@ -38,5 +38,11 @@ node default {
     } 
   }
 
+  if $hostname =~ /mongo/ {
+    class { 'mongodb':
+        enable_10gen => true,
+    }
+  }
+
   include baseline
 }

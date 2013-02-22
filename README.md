@@ -35,3 +35,4 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 * nodejs (latest from ppa:chris.lea)
 * java (7)
 * redis (2.6.10 port 6379)
+* mongo (latest from 10\_gen ppa port 27017)

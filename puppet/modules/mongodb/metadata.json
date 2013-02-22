@@ -1,0 +1,37 @@
+{
+  "checksums": {
+    "Modulefile": "5fc5f4dc58d95e1eda99915db1c7958a",
+    "manifests/sources/yum.pp": "1705a4bbf4403d0ecdd0ed786aa8e20f",
+    "Rakefile": "0254db5d3fc38c67a2c160d7296a24f8",
+    "manifests/init.pp": "c48460e24a2ce1b8a31b2fc54552852b",
+    "tests/sources/yum.pp": "1daacf2de2c2d718345010fc5ce73245",
+    "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+    "tests/init.pp": "c29e4762855114f0111961d495abcf65",
+    "README.md": "0f38e45f2d429354d71a12cf488a03bf",
+    "manifests/params.pp": "546588b8fcec2505809ffa6b090b3ceb",
+    "CHANGELOG": "5ad3778c792b1a1de5440577057f8090",
+    "tests/sources/apt.pp": "bcd51d9fcb2cef9af29f0acc08e36c85",
+    "manifests/sources/apt.pp": "43f39c1438902fd1735a9f1e81eb91e9",
+    "templates/mongod.conf.erb": "8798b9c0f386ad75e9b0f0c277deff55",
+    "spec/fixtures/hiera.yaml": "5c6a20f757d1c94c1233af257b97d3c3",
+    "spec/classes/mongodb_spec.rb": "aa53243aad016d53d46fbff023352693",
+    "LICENSE": "b3f8a01d8699078d82e8c3c992307517"
+  },
+  "license": "Apache License Version 2.0",
+  "version": "0.1.0",
+  "types": [
+
+  ],
+  "dependencies": [
+    {
+      "version_requirement": ">= 0.0.2",
+      "name": "puppetlabs/apt"
+    }
+  ],
+  "summary": "mongodb puppet module",
+  "source": "git@github.com:puppetlabs/puppetlabs-mongodb.git",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-mongodb",
+  "description": "10gen mongodb puppet module",
+  "author": "puppetlabs",
+  "name": "puppetlabs-mongodb"
+}
