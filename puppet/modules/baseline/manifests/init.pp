@@ -8,6 +8,7 @@ class baseline {
     'curl',
     'emacs',
     'gawk',
+    'mercurial, 
     'vim',
     'zsh',
   ]
