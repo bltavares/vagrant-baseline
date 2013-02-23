@@ -34,6 +34,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 * ruby (rbenv + ruby 1.9.3)
 * nodejs (latest from ppa:chris.lea)
 * java (7)
+* lua (5.2 + luarocks)
 * redis (2.6.10 port 6379)
 * mongo (latest from 10\_gen ppa port 27017)
 * postgre (9.2 Username: postgres Password: postgres)

@@ -32,6 +32,10 @@ node default {
     }
   }
 
+  if $hostname =~ /lua/ {
+    include baseline::lua
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
         version => '2.6.10',
