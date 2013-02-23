@@ -13,12 +13,36 @@ Now you can mess up all the files in your dev box, and discard when you think it
 
 * vagrant (Which means ruby and VirtualBox)
 * Internet connection
+* An updated base box with the puppet 3.1.0
 
+If you don't know what a base box is, relax. Vagrant will download one for you on the first time you run the commands. It is around 350Mb.
+If you don't know how to update a base box, take a look on the _Vagrantfile_. There is a link were you can find a updated box.
 
 At first, the setup will download the required packages and it will take a while depending of your connection.
 It builds a cache on your local machine, under ~/.vagrant.d/cache/apt/precise, so on the next build the bootstrap time becomes much smaller.
 
 The cache is only directed to the .deb packages. It still compiles some packages from scratch. (e.g: ruby, redis)
+
+## Instalation
+
+First of all, clone the repo:
+
+    git clone https://github.com/bltavares/vagrant-baseline.git baseline
+    cd baseline
+
+If you have _bundler_ you can use the _Gemfile_ to install _vagrant_
+
+    bundle install
+
+If you don't have _bundler_ you can install it manually
+
+    gem install vagrant
+    #If you have to update
+    gem update vagrant
+
+If you are using rbenv don't forget to update the commands database, otherwise it won't find your new _vagrant_
+
+    rbenv rehash
 
 ### Usage
 
