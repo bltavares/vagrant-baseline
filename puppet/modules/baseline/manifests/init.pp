@@ -15,8 +15,8 @@ class baseline {
 
   package {
     $packages:
-    ensure => 'latest',
-    require => [Class[apt::update], Package['git-core']],
+      ensure  => 'latest',
+      require => [Class[apt::update], Package['git-core']],
       ;
   }
 
