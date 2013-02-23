@@ -9,7 +9,7 @@ Maybe you want to try out a language but it requires you to install all the libr
 
 Now you can mess up all the files in your dev box, and discard when you think it is to messy.
 
-## Requirements
+### Requirements
 
 * vagrant (Which means ruby and VirtualBox)
 * Internet connection
@@ -23,7 +23,7 @@ It builds a cache on your local machine, under ~/.vagrant.d/cache/apt/precise, s
 
 The cache is only directed to the .deb packages. It still compiles some packages from scratch. (e.g: ruby, redis)
 
-## Instalation
+### Instalation
 
 First of all, clone the repo:
 
