@@ -36,6 +36,11 @@ node default {
     include baseline::lua
   }
 
+  if $hostname =~ /clojure/ {
+    include java7
+    include baseline::lein
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',
@@ -61,6 +66,7 @@ node default {
         },
       }
   }
+
 
   if $hostname !~ /nodots/ {
     include baseline::dotfiles
