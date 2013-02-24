@@ -60,6 +60,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 * java (7)
 * lua (5.2 + luarocks)
 * clojure (lein latest stable version)
+* python (2.7 + pip and virtualenv)
 * redis (2.6.10 port 6379)
 * mongo (latest from 10\_gen ppa port 27017)
 * postgre (9.2 Username: postgres Password: postgres)

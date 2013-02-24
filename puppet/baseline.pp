@@ -41,6 +41,10 @@ node default {
     include baseline::lein
   }
 
+  if $hostname =~ /python/ {
+    include baseline::python
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',
