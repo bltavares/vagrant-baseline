@@ -19,8 +19,9 @@ node default {
     class { 'rbenv': }
     rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '1.9.3-p385': global => true }
 
+    $baseline_user = hiera('baseline_user','vagrant')
     file {
-      '/home/vagrant/.host_specific':
+      "/home/${baseline_user}/.host_specific":
         content => '[[ -f /etc/profile.d/rbenv.sh ]] && source /etc/profile.d/rbenv.sh'
     }
   }

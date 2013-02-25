@@ -1,0 +1,17 @@
+[alias]
+        ci = commit
+        co = checkout
+        l = log
+        graph = log --graph --decorate --oneline --branches
+        df = diff --cached --color --color-words
+        dff = diff --color --color-words
+        s = status -sb
+[color]
+        ui = always
+[core]
+        editor = /usr/bin/vim
+        excludesfile = /Users/pair/.global_ignore
+[diff]
+        tool = vimdiff
+[merge]
+        tool = vimdiff

@@ -74,6 +74,7 @@ Vagrant::Config.run do |config|
   # # }
   options = {
     module_path: 'puppet/modules',
+    options:     ['--hiera_config hiera.yaml'],
     facter:      { fqdn: 'precise.vagrant' }
   }
 
