@@ -17,14 +17,12 @@ class baseline::dotfiles {
       require => [Package['curl'], Package['git-core']],
       user    => $baseline_user,
       ;
-
     'download dot-files':
       command => "git clone https://github.com/bltavares/dot-files.git /home/${baseline_user}/dot-files",
       creates => "/home/${baseline_user}/dot-files",
       require => Exec['set up default settings'],
       user    => $baseline_user,
       ;
-
     'install-dot-files':
       command => "bash -c 'HOME=/home/${baseline_user} ./install.sh'",
       creates => "/home/${baseline_user}/.zshrc",
@@ -32,10 +30,9 @@ class baseline::dotfiles {
       require => Exec['download dot-files'],
       user    => $baseline_user,
       ;
-
     'set shell':
       command => "chsh -s /bin/zsh ${baseline_user}",
-      require => Exec['install-dot-files'],
+      require => [Exec['install-dot-files'], Package['zsh']],
       ;
   }
 }

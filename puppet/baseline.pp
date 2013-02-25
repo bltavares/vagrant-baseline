@@ -1,5 +1,6 @@
 node default {
 
+  include baseline
   include apt::update
   class { 'avahi':
     firewall => true,
@@ -12,29 +13,15 @@ node default {
   }
 
   if $hostname =~ /ruby/  {
-    class { 'gcc':
-      require => Class[apt::update],
-    }
-
-    class { 'rbenv': }
-    rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '1.9.3-p385': global => true }
-
-    $baseline_user = hiera('baseline_user','vagrant')
-    file {
-      "/home/${baseline_user}/.host_specific":
-        content => '[[ -f /etc/profile.d/rbenv.sh ]] && source /etc/profile.d/rbenv.sh'
-    }
+    include baseline::lang::ruby
   }
 
   if $hostname =~ /nodejs/ {
-    apt::ppa { 'ppa:chris-lea/node.js': }
-    class { 'nodejs':
-      require => Apt::Ppa['ppa:chris-lea/node.js']
-    }
+    include baseline::lang::nodejs
   }
 
   if $hostname =~ /lua/ {
-    include baseline::lua
+    include baseline::lang::lua
   }
 
   if $hostname =~ /clojure/ {
@@ -43,7 +30,7 @@ node default {
   }
 
   if $hostname =~ /python/ {
-    include baseline::python
+    include baseline::lang::python
   }
 
   if $hostname =~ /redis/ {
@@ -59,22 +46,10 @@ node default {
   }
 
   if $hostname =~ /postgre/ {
-    class { 'postgresql':
-      version               => '9.2',
-      manage_package_repo   => true,
-      }-> class { 'postgresql::server':
-        config_hash => {
-          'ip_mask_allow_all_users'    => '0.0.0.0/0',
-          'ip_mask_deny_postgres_user' => '0.0.0.0/32',
-          'listen_addresses'           => '*',
-          'postgres_password'          => 'postgres',
-        },
-      }
+    include baseline::postgre
   }
-
 
   if $hostname !~ /nodots/ {
     include baseline::dotfiles
   }
-  include baseline
 }

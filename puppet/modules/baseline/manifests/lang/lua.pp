@@ -1,4 +1,4 @@
-class baseline::lua {
+class baseline::lang::lua {
 
   include gcc
   include baseline::checkinstall

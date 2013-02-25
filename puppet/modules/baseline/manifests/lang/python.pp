@@ -1,4 +1,4 @@
-class baseline::python {
+class baseline::lang::python {
 
   include apt::update
 
