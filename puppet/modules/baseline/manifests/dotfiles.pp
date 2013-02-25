@@ -13,6 +13,7 @@ class baseline::dotfiles {
   exec {
     'set up default settings':
       command => 'curl https://gist.github.com/bltavares/2706792/raw/post-install.sh | bash',
+      creates => "/home/${baseline_user}/.Xmodmap",
       cwd     => "/home/${baseline_user}",
       require => [Package['curl'], Package['git-core']],
       user    => $baseline_user,
