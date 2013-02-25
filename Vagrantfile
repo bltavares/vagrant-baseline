@@ -14,7 +14,7 @@ end
 
 Vagrant::Config.run do |config|
 
-  config.vm.host_name = ENV["provision_name"]  || "baseline"
+  config.vm.host_name = ENV["host_name"]  || "baseline"
 
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,

@@ -46,11 +46,11 @@ If you are using rbenv don't forget to update the commands database, otherwise i
 
 ### Usage
 
-    provision_name=ruby-nodejs vagrant up
+    host_name=ruby-nodejs vagrant up
 
 To extend a machine with another env:
 
-    provision_name=java vagrant reload
+    host_name=java vagrant reload
 
 ### Current environments
 You can combine any of those names on the provision\_name, but it *must* be a valid hostname
@@ -68,6 +68,6 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 
 By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
 
-    provision_name=nodots-redis vagrant up
+    host_name=nodots-redis vagrant up
 
 
