@@ -60,6 +60,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 * ruby    (rbenv + ruby 1.9.3)
 * mongo   (latest from 10\_gen ppa port 27017)
 * redis   (2.6.10 port 6379)
+* erlang  (latest from erlang-solutions.com)
 * nodejs  (latest from ppa:chris.lea)
 * python  (2.7 + pip and virtualenv)
 * clojure (lein latest stable version)

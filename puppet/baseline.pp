@@ -33,6 +33,10 @@ node default {
     include baseline::lang::python
   }
 
+  if $hostname =~ /erlang/ {
+    include baseline::lang::erlang
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',
@@ -52,4 +56,5 @@ node default {
   if $hostname !~ /nodots/ {
     include baseline::dotfiles
   }
+
 }
