@@ -1,5 +1,5 @@
 # Baseline
-## Dev box with batteries
+## Dev box with batteries included
 
 The ideia is to provide a simple dev box with tools.
 
