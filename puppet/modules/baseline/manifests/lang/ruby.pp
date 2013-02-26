@@ -10,9 +10,11 @@ class baseline::lang::ruby {
   rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '1.9.3-p385': global => true }
 
   $baseline_user = hiera('baseline_user','vagrant')
-  file {
-    "/home/${baseline_user}/.host_specific":
-      content => '[[ -f /etc/profile.d/rbenv.sh ]] && source /etc/profile.d/rbenv.sh'
+  exec {
+    'source rbenv in zshenv':
+      command => "/bin/echo '[[ -f /etc/profile.d/rbenv.sh ]] && source /etc/profile.d/rbenv.sh' >> /home/${baseline_user}/.zshenv",
+      unless  => "/bin/grep rbenv.sh /home/${baseline_user}/.zshenv 2> /dev/null",
+      ;
   }
 
 }
