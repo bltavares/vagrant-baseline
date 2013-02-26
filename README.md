@@ -9,6 +9,15 @@ Maybe you want to try out a language but it requires you to install all the libr
 
 Now you can mess up all the files in your dev box, and discard when you think it is to messy.
 
+
+
+### Table of contents
+  - [Requirements](#requirements)
+  - [Instalation](#instalation)
+  - [Usage](#usage)
+  - [Current environments](#current-environments)
+  - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
+
 ### Requirements
 
 * vagrant (Which means ruby and VirtualBox)
