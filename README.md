@@ -73,4 +73,15 @@ By default, it load up my dot files (http://github.com/bltavares/dot-files). To 
 
     host_name=nodots-redis vagrant up
 
+---
+
+### Experienced usage: Running setup using _puppet apply_
+
+The bootstrap relies on the _$hostname_ property set up by puppet. You might not want to change the hostname of your running computer, for example, and might want to provision your computer with those scripts.
+
+You can override the _$hostname_ property that puppet defines before running your command. e.g
+
+    # cd to the puppet dir
+    cd baseline/puppet
+    FACTER_hostname=redis puppet apply --modulepath modules --hiera_config hiera.yaml init.pp
 
