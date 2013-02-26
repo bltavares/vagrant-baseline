@@ -20,4 +20,10 @@ class baseline {
       ;
   }
 
+  class { 'avahi':
+    firewall => true,
+    require  => Class[apt::update],
+    ;
+  }
+
 }

@@ -1,12 +1,6 @@
 node default {
 
   include baseline
-  include apt::update
-  class { 'avahi':
-    firewall => true,
-    require  => Class[apt::update],
-    ;
-  }
 
   if $hostname =~ /java/ {
     include java7
