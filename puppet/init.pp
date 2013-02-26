@@ -31,6 +31,10 @@ node default {
     include baseline::lang::erlang
   }
 
+  if $hostname =~ /haskell/ {
+    include baseline::lang::haskell
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',

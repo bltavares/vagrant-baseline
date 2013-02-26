@@ -68,15 +68,16 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | ---      | ---                                       |
 | clojure  | lein latest stable version                |
 | erlang   | latest from erlang-solutions.com          |
+| haskell  | haskell-platform from ubuntu's repo       |
 | java     | 7                                         |
 | lua      | 5.2 + luarocks                            |
 | mongo    | latest from 10\_gen ppa port 27017        |
 | nodejs   | latest from ppa:chris.lea                 |
+| nodots   | skip setup of dot files                   |
 | postgres | 9.2 Username: postgres Password: postgres |
 | python   | 2.7 + pip and virtualenv                  |
 | redis    | 2.6.10 port 6379                          |
 | ruby     | rbenv + ruby 1.9.3                        |
-| nodots   | skip setup of dot files                   |
 
 By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
 
