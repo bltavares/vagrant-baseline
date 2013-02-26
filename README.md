@@ -1,7 +1,7 @@
 # Baseline
 ## Dev box with batteries included
 
-The ideia is to provide a simple dev box with tools.
+The idea is to provide a simple dev box with tools.
 
 Sometimes you want to play with a project, which leads you to install a lot of stuff on your computer and the filesystem gets messy.
 Your computer turn out to be slow booting up, because it is loading a database that you never use.
@@ -13,14 +13,14 @@ Now you can mess up all the files in your dev box, and discard when you think it
 
 ### Table of contents
   - [Requirements](#requirements)
-  - [Instalation](#instalation)
+  - [Installation](#installation)
   - [Usage](#usage)
   - [Current environments](#current-environments)
   - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
 
 ### Requirements
 
-* vagrant (Which means ruby and VirtualBox)
+* vagrant (which means ruby and VirtualBox)
 * Internet connection
 * An updated base box with the puppet 3.1.0
 
@@ -32,7 +32,7 @@ It builds a cache on your local machine, under ~/.vagrant.d/cache/apt/precise, s
 
 The cache is only directed to the .deb packages. It still compiles some packages from scratch. (e.g: ruby, redis)
 
-### Instalation
+### Installation
 
 First of all, clone the repo:
 
@@ -64,19 +64,19 @@ To extend a machine with another env:
 ### Current environments
 You can combine any of those names on the provision\_name, but it *must* be a valid hostname
 
-| Name    | Provides                                  |
-| ---     | ---                                       |
-| clojure | lein latest stable version                |
-| erlang  | latest from erlang-solutions.com          |
-| java    | 7                                         |
-| lua     | 5.2 + luarocks                            |
-| mongo   | latest from 10\_gen ppa port 27017        |
-| nodejs  | latest from ppa:chris.lea                 |
-| postgre | 9.2 Username: postgres Password: postgres |
-| python  | 2.7 + pip and virtualenv                  |
-| redis   | 2.6.10 port 6379                          |
-| ruby    | rbenv + ruby 1.9.3                        |
-| nodots  | skip setup of dot files                   |
+| Name     | Provides                                  |
+| ---      | ---                                       |
+| clojure  | lein latest stable version                |
+| erlang   | latest from erlang-solutions.com          |
+| java     | 7                                         |
+| lua      | 5.2 + luarocks                            |
+| mongo    | latest from 10\_gen ppa port 27017        |
+| nodejs   | latest from ppa:chris.lea                 |
+| postgres | 9.2 Username: postgres Password: postgres |
+| python   | 2.7 + pip and virtualenv                  |
+| redis    | 2.6.10 port 6379                          |
+| ruby     | rbenv + ruby 1.9.3                        |
+| nodots   | skip setup of dot files                   |
 
 By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
 
