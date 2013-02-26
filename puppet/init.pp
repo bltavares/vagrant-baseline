@@ -35,6 +35,11 @@ node default {
     include baseline::lang::haskell
   }
 
+  if $hostname =~ /scala/ {
+    include java7
+    include baseline::lang::scala
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',
