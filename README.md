@@ -94,5 +94,5 @@ You can override the _$hostname_ property that puppet defines before running you
 
     # cd to the puppet dir
     cd baseline/puppet
-    FACTER_hostname=redis puppet apply --modulepath modules --hiera_config hiera.yaml init.pp
+    FACTER_hostname=redis puppet apply --confdir . init.pp
 
