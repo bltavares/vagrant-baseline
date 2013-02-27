@@ -17,6 +17,8 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Usage](#usage)
   - [Current environments](#current-environments)
   - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
+  - [Using your own dotfiles](#using-your-own-dotfiles)
+  - [Skip setting ZSH as the default shell](#skip-setting-ZSH-as-the-default-shell)
 
 ### Requirements
 
@@ -83,6 +85,24 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
 
     host_name=nodots-redis vagrant up
+
+### Using your own dotfiles
+
+By default the manifest privison my own dotfiles (http://github.com/bltavares/dot-files). You can change to point to your dotfiles and have it loaded up.
+There a minor considerations to use your own dotfiles:
+
+* It must be a git repo
+* It must contain an excutable file called install.sh in the root of your repo. It will be called to setup your dotfiles configurations.
+* To make sure it doesn't run everytime you turn your vagrant on, add this to the end of the file:
+
+    touch $HOME/.baseline_dotfiles
+    
+After making sure you have all the requirements in place, change on the file _puppet/config.yaml_ to point to your repo.
+
+
+### Skip setting ZSH as the default shell
+
+To skip setting zsh as the default shell for your user, change the option under _puppet/config.yaml_.
 
 ---
 

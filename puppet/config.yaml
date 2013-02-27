@@ -1,1 +1,3 @@
 baseline_user: vagrant
+baseline_dotfiles:  https://github.com/bltavares/dot-files.git
+baseline_use_zsh: true
