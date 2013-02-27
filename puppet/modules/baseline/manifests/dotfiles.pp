@@ -34,7 +34,7 @@ class baseline::dotfiles {
     exec {
       'set shell':
         command => "chsh -s /bin/zsh ${baseline_user}",
-        require => [Package['zsh'],
+        require => Package['zsh'],
         ;
     }
   }
