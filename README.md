@@ -9,8 +9,6 @@ Maybe you want to try out a language but it requires you to install all the libr
 
 Now you can mess up all the files in your dev box, and discard when you think it is to messy.
 
-
-
 ### Table of contents
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -18,7 +16,8 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Current environments](#current-environments)
   - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
   - [Using your own dotfiles](#using-your-own-dotfiles)
-  - [Skip setting ZSH as the default shell](#skip-setting-ZSH-as-the-default-shell)
+  - [Skip setting ZSH as the default shell](#skip-setting-zsh-as-the-default-shell)
+  - [Working with multiple VMs](#working-with-multiple-vms)
 
 ### Requirements
 
@@ -104,6 +103,19 @@ After making sure you have all the requirements in place, change on the file _pu
 ### Skip setting ZSH as the default shell
 
 To skip setting zsh as the default shell for your user, change the option under _puppet/config.yaml_.
+
+### Working with multiple VMs
+
+Vagrant's configuration allows you to either use a single vm environments or use multiple.
+Sometimes you want to try out some other stack while still keeping the current one you are using. Or test networking with different stacks.
+Toggling the enviroment variable use_default_box, baseline will allow you to bootstrap multiple machines or a single machine.
+
+    host_name=nodejs use_default_box=false vagrant up
+    host_name=nodejs use_default_box=false vagrant ssh
+    host_name=nodots-mongo use_default_box=false vagrant up
+    host_name=nodots-mongo use_default_box=false vagrant destroy
+    host_name=nodejs use_default_box=false vagrant destroy
+
 
 ---
 
