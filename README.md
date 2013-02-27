@@ -71,6 +71,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | clojure  | lein latest stable version          |                                           |
 | erlang   | latest from erlang-solutions.com    |                                           |
 | haskell  | haskell-platform from ubuntu's repo |                                           |
+| io       | Latest io deb from io website       |                                           |
 | java     | 7                                   |                                           |
 | lua      | 5.2 + luarocks                      |                                           |
 | mongo    | latest from 10\_gen repo            | *port:* 27017                             |
