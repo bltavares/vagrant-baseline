@@ -1,5 +1,6 @@
 node default {
 
+  import 'custom/**.pp'
   include baseline
 
   if $hostname =~ /java/ {

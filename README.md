@@ -18,6 +18,7 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Using your own dotfiles](#using-your-own-dotfiles)
   - [Skip setting ZSH as the default shell](#skip-setting-zsh-as-the-default-shell)
   - [Working with multiple VMs](#working-with-multiple-vms)
+  - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
 
 ### Requirements
 
@@ -117,6 +118,13 @@ Toggling the enviroment variable use_default_box, baseline will allow you to boo
     host_name=nodots-mongo use_default_box=false vagrant destroy
     host_name=nodejs use_default_box=false vagrant destroy
 
+
+### Extending with your own puppet scripts
+
+Sometimes you will want to try out some different modules that are not currently in the project, or will want to set up a webserver for the project you are writing and have it configured and deployed with your project.
+Or maybe you just want to have some packages installed, or removed.
+
+You can achieve that extending the project using the _puppet/custom_ folder. There is an example file to guide you in the path to extend your vagrant machine.
 
 ---
 
