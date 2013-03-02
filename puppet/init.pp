@@ -49,6 +49,10 @@ node default {
     include baseline::lang::prolog
   }
 
+  if $hostname =~ /go/ {
+    include baseline::lang::go
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',
