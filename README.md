@@ -69,6 +69,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | Name     | Provides                            | Extra information                         |
 | ---      | ---                                 | ---                                       |
 | clojure  | lein latest stable version          |                                           |
+| couchdb  | 1.2.1 + erlang R15B                 | *port:* 5984 *listen on:* 127.0.0.1       |
 | erlang   | latest from erlang-solutions.com    |                                           |
 | haskell  | haskell-platform from ubuntu's repo |                                           |
 | io       | Latest io deb from io website       |                                           |

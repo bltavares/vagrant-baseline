@@ -1,4 +1,4 @@
-class baseline::lang::erlang {
+class baseline::lang::erlang( $version = 'latest') { 
 
   apt::source { 'erlang-solutions':
     location    => 'http://binaries.erlang-solutions.com/debian',
@@ -10,7 +10,7 @@ class baseline::lang::erlang {
   }
 
   package { 'esl-erlang':
-    ensure  => 'latest',
+    ensure  => $version,
     require => Apt::Source['erlang-solutions'],
   }
 

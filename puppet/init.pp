@@ -65,6 +65,10 @@ node default {
     include baseline::postgre
   }
 
+  if $hostname =~ /couchdb/ {
+    class { 'baseline::lang::erlang': version => '1:15.b.3-2~ubuntu~precise' } -> class { 'baseline::couchdb': }
+  }
+
   if $hostname !~ /nodots/ {
     include baseline::dotfiles
   }
