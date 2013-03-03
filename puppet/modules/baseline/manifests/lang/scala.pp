@@ -1,22 +1,16 @@
 class baseline::lang::scala {
 
   $scala_basename = 'scala-2.10.0'
-  $scala_tarball = "${scala_basename}.tgz"
   $scala_path = "/opt/${scala_basename}/bin"
 
-  $baseline_user = hiera("baseline_user")
+  $baseline_user = hiera('baseline_user')
 
   exec {
     'download scala':
-      command => "/usr/bin/wget http://www.scala-lang.org/downloads/distrib/files/${scala_tarball}",
-      cwd     => '/opt',
-      creates => "/opt/${scala_tarball}",
-      ;
-    'extract scala':
-      command => "/bin/tar xf ${scala_tarball}",
+      command => "/usr/bin/curl http://www.scala-lang.org/downloads/distrib/files/${scala_basename}.tgz | /bin/tar xz",
       cwd     => '/opt',
       creates => "/opt/${scala_basename}",
-      require => Exec['download scala'],
+      require => Package['curl'],
       ;
     'source scala in zshenv':
       command => "/bin/echo '[[ -f /etc/profile.d/scala.sh ]] && source /etc/profile.d/scala.sh' >> /home/${baseline_user}/.zshenv",
@@ -26,6 +20,7 @@ class baseline::lang::scala {
       command => '/usr/bin/wget http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.2/sbt.deb',
       cwd     => '/opt',
       creates => '/opt/sbt.deb',
+      require => [Package['curl'], Class[java7]],
       ;
     'install sbt':
       command => '/usr/bin/dpkg -i sbt.deb',
@@ -37,8 +32,8 @@ class baseline::lang::scala {
 
   file {
     'scala path':
-      path => '/etc/profile.d/scala.sh',
-      content  => template("baseline/scala.sh"),
+      path    => '/etc/profile.d/scala.sh',
+      content => template('baseline/scala.sh'),
       ;
   }
 
