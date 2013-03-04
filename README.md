@@ -68,7 +68,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 
 | Name     | Provides                            | Extra information                         |
 | ---      | ---                                 | ---                                       |
-| clojure  | lein latest stable version          |                                           |
+| clojure  | lein latest stable version          | includes java 7                           |
 | couchdb  | 1.2.1 + erlang R15B                 | *port:* 5984 *listen on:* 127.0.0.1       |
 | elixir   | 0.8.1                               | includes latest erlang                    |
 | erlang   | latest from erlang-solutions.com    |                                           |
@@ -85,7 +85,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | python   | 2.7 + pip and virtualenv            |                                           |
 | redis    | 2.6.10                              | *port:* 6379                              |
 | ruby     | rbenv + ruby 1.9.3                  |                                           |
-| scala    | 2.10.0 + sbt 0.12.2                 |                                           |
+| scala    | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
 
 By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
 
