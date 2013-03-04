@@ -53,6 +53,11 @@ node default {
     include baseline::lang::go
   }
 
+  if $hostname =~ /elixir/ {
+    include baseline::lang::erlang
+    include baseline::lang::elixir
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',
