@@ -58,6 +58,10 @@ node default {
     include baseline::lang::elixir
   }
 
+  if $hostname =~ /rust/ {
+    include baseline::lang::rust
+  }
+
   if $hostname =~ /redis/ {
     class { 'redis':
       version => '2.6.10',

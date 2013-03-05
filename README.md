@@ -85,6 +85,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | python   | 2.7 + pip and virtualenv            |                                           |
 | redis    | 2.6.10                              | *port:* 6379                              |
 | ruby     | rbenv + ruby 1.9.3                  |                                           |
+| rust     | 0.5.1                               |                                           |
 | scala    | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
 
 By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
