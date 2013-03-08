@@ -84,7 +84,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | prolog   | swipl 6.2.6                         |                                           |
 | python   | 2.7 + pip and virtualenv            |                                           |
 | redis    | 2.6.10                              | *port:* 6379                              |
-| ruby     | rbenv + ruby 1.9.3                  |                                           |
+| ruby     | rbenv + ruby 2.0                    |                                           | 
 | rust     | 0.5.1                               |                                           |
 | scala    | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
 
