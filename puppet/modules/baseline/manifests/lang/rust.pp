@@ -9,7 +9,7 @@ class baseline::lang::rust {
     creates => "/opt/${rust_package}",
     ;
   'install rust':
-    command => "/usr/bin/dpkg -i /opt/${rust_package} && /bin/rm /opt/${rust_package}",
+    command => "/usr/bin/dpkg -i /opt/${rust_package}",
     creates => '/usr/local/bin/rustc',
     require => Exec['download rust package'],
     ;
