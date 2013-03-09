@@ -1,7 +1,5 @@
 class baseline::lang::python {
 
-  include apt::update
-
   $apt_packages = [
     'python-dev',
     'python-pip',
@@ -15,7 +13,6 @@ class baseline::lang::python {
   package {
     $apt_packages:
       ensure  => 'latest',
-      require => Class[apt::update],
       ;
     $pip_packages:
       ensure   => 'latest',

@@ -1,6 +1,5 @@
 class baseline::lang::prolog {
 
-  include apt::update
   include baseline::checkinstall
   include gcc
 
@@ -20,7 +19,6 @@ class baseline::lang::prolog {
   package {
     $packages:
       ensure  => 'latest',
-      require => Class[apt::update],
   }
 
   $swipl_basename = 'pl-6.2.6'

@@ -2,7 +2,6 @@ class baseline::lang::lua {
 
   include gcc
   include baseline::checkinstall
-  include apt::update
 
   $luarocks_basename = 'luarocks-2.0.12'
   $luarocks_tarball = "${luarocks_basename}.tar.gz"
@@ -10,7 +9,7 @@ class baseline::lang::lua {
 
   package { ['lua5.2', 'lua5.2-dev']:
     ensure  => 'latest',
-    require => [Class[apt::update], Class[gcc], Class[baseline::checkinstall]],
+    require => [Class[gcc], Class[baseline::checkinstall]],
   }
 
   exec {

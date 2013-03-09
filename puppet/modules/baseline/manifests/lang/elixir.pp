@@ -1,11 +1,9 @@
 class baseline::lang::elixir {
 
-  $baseline_user = hiera('baseline_user')
+  $baseline_user = hiera('baseline_user', 'vagrant')
   $elixir_tarball = 'v0.8.1.zip'
 
-  package { 'unzip':
-    ensure => installed,
-  }
+  include baseline::unzip
 
   exec {
     'download elixir':

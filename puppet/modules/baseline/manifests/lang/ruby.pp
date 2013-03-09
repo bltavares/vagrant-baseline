@@ -1,10 +1,6 @@
 class baseline::lang::ruby {
 
-  include apt::update
-
-  class { 'gcc':
-    require => Class[apt::update],
-  }
+  include gcc
 
   class { 'rbenv': }
   rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '2.0.0-p0': global => true }

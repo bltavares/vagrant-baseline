@@ -3,9 +3,7 @@ class baseline::lang::io {
   $io_tarball = 'iobin-linux-x64-deb-current.zip'
   $io_deb_package = 'IoLanguage-2012.11.10-Linux-x64.deb'
 
-  package { 'unzip':
-    ensure => latest,
-  }
+  include baseline::unzip
 
   exec {
     'download io':
