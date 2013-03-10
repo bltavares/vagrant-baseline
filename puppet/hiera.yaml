@@ -1,9 +1,11 @@
 ---
-:backends: - yaml
+:backends:
+  - yaml
 
 :logger: console
 
-:hierarchy: - config
+:hierarchy:
+  - config
 
 :yaml:
      :datadir: .
