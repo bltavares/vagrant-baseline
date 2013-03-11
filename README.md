@@ -14,11 +14,12 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Installation](#installation)
   - [Usage](#usage)
   - [Current environments](#current-environments)
-  - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
   - [Using your own dotfiles](#using-your-own-dotfiles)
   - [Skip setting ZSH as the default shell](#skip-setting-zsh-as-the-default-shell)
   - [Working with multiple VMs](#working-with-multiple-vms)
   - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
+  - [Using GUI programs](#using-gui-programs)
+  - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
 
 ### Requirements
 
@@ -129,6 +130,16 @@ Sometimes you will want to try out some different modules that are not currently
 Or maybe you just want to have some packages installed, or removed.
 
 You can achieve that extending the project using the _puppet/custom_ folder. There is an example file to guide you in the path to extend your vagrant machine.
+
+
+### Using GUI programs
+
+Ssh allows you to forward the X server to your computer. If you want to use a program with a grafical interface or want to code an app that generates graphics, you can ask `vagrant` to forward it for you.
+
+Just goes with:
+
+    vagrat ssh -- -X
+
 
 ---
 
