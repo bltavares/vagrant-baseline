@@ -3,86 +3,86 @@ node default {
   import 'custom/**.pp'
   include baseline
 
-  if $hostname =~ /java/ {
+  if $hostname =~ /\bjava\b/ {
     include java7
   }
 
-  if $hostname =~ /ruby/  {
+  if $hostname =~ /\bruby\b/  {
     include baseline::lang::ruby
   }
 
-  if $hostname =~ /nodejs/ {
+  if $hostname =~ /\bnodejs\b/ {
     include baseline::lang::nodejs
   }
 
-  if $hostname =~ /lua/ {
+  if $hostname =~ /\blua\b/ {
     include baseline::lang::lua
   }
 
-  if $hostname =~ /clojure/ {
+  if $hostname =~ /\bclojure\b/ {
     include java7
     include baseline::lein
   }
 
-  if $hostname =~ /python/ {
+  if $hostname =~ /\bpython\b/ {
     include baseline::lang::python
   }
 
-  if $hostname =~ /erlang/ {
+  if $hostname =~ /\berlang\b/ {
     include baseline::lang::erlang
   }
 
-  if $hostname =~ /haskell/ {
+  if $hostname =~ /\bhaskell\b/ {
     include baseline::lang::haskell
   }
 
-  if $hostname =~ /scala/ {
+  if $hostname =~ /\bscala\b/ {
     include java7
     include baseline::lang::scala
   }
 
-  if $hostname =~ /io/ {
+  if $hostname =~ /\bio\b/ {
     include baseline::lang::io
   }
 
-  if $hostname =~ /prolog/ {
+  if $hostname =~ /\bprolog\b/ {
     include baseline::lang::prolog
   }
 
-  if $hostname =~ /go/ {
+  if $hostname =~ /\bgo\b/ {
     include baseline::lang::go
   }
 
-  if $hostname =~ /elixir/ {
+  if $hostname =~ /\belixir\b/ {
     include baseline::lang::erlang
     include baseline::lang::elixir
   }
 
-  if $hostname =~ /rust/ {
+  if $hostname =~ /\brust\b/ {
     include baseline::lang::rust
   }
 
-  if $hostname =~ /redis/ {
+  if $hostname =~ /\bredis\b/ {
     class { 'redis':
       version => '2.6.10',
     }
   }
 
-  if $hostname =~ /mongo/ {
+  if $hostname =~ /\bmongo\b/ {
     class { 'mongodb':
       enable_10gen => true,
     }
   }
 
-  if $hostname =~ /postgre/ {
+  if $hostname =~ /\bpostgre\b/ {
     include baseline::postgre
   }
 
-  if $hostname =~ /couchdb/ {
+  if $hostname =~ /\bcouchdb\b/ {
     class { 'baseline::lang::erlang': version => '1:15.b.3-2~ubuntu~precise' } -> class { 'baseline::couchdb': }
   }
 
-  if $hostname !~ /nodots/ {
+  if $hostname !~ /\bnodots\b/ {
     include baseline::dotfiles
   }
 
