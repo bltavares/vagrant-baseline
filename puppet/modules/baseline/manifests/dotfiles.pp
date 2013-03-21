@@ -36,6 +36,10 @@ class baseline::dotfiles {
         command => "chsh -s /bin/zsh ${baseline_user}",
         require => Package['zsh'],
         ;
+      'source vagrant_ruby in zshenv':
+        command => "/bin/echo '[[ -f /etc/profile.d/vagrant_ruby.sh ]] && source /etc/profile.d/vagrant_ruby.sh' >> /home/${baseline_user}/.zshenv",
+        unless  => "/bin/grep vagrant_ruby.sh /home/${baseline_user}/.zshenv 2> /dev/null",
+        ;
     }
   }
 }
