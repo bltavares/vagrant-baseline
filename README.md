@@ -20,6 +20,7 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
   - [Using GUI programs](#using-gui-programs)
   - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
+  - [Shortcut-to-provision-your-machine](#shortcut-to-provision-your-machine)
 
 ### Requirements
 
@@ -141,6 +142,7 @@ Just goes with:
     vagrat ssh -- -X
 
 
+
 ---
 
 ### Experienced usage: Running setup using _puppet apply_
@@ -152,4 +154,30 @@ You can override the _$hostname_ property that puppet defines before running you
     # cd to the puppet dir
     cd baseline/puppet
     FACTER_hostname=redis puppet apply --confdir . init.pp
+
+
+### Shortcut to provision your machine
+
+Include the following function on your .bashrc or .zshrc, or just paste it on your terminal to have access to a shortcut to provision your machines.
+
+```bash
+provision () {
+    PROVISION=$(echo "nodots $@" | tr " " "-" | sed 's/-$//')
+    (
+        cd ${PUPPET_FILES:-/tmp/vagrant-puppet/manifests}
+        sudo FACTER_hostname=$PROVISION puppet apply --confdir . init.pp --verbose --debug
+    )
+}
+```
+
+After that you can run the provision as the following:
+```bash
+provision lua clojure redis
+```
+
+If you had it checked out on another path that is not set by the Vagrantfile, you can customize it as the following:
+```bash
+export PUPPET_FILES=/path/to/the/configurations
+provision scala mongo
+```
 
