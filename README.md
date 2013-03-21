@@ -20,7 +20,7 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
   - [Using GUI programs](#using-gui-programs)
   - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
-  - [Shortcut-to-provision-your-machine](#shortcut-to-provision-your-machine)
+  - [Shortcut to provision your machine](#shortcut-to-provision-your-machine)
 
 ### Requirements
 
@@ -40,30 +40,42 @@ The cache is only directed to the .deb packages. It still compiles some packages
 
 First of all, clone the repo:
 
-    git clone https://github.com/bltavares/vagrant-baseline.git baseline
-    cd baseline
+```bash
+git clone https://github.com/bltavares/vagrant-baseline.git baseline
+cd baseline
+```
 
 If you have _bundler_ you can use the _Gemfile_ to install _vagrant_
 
-    bundle install
+```bash
+bundle install
+```
 
 If you don't have _bundler_ you can install it manually
 
-    gem install vagrant
-    #If you have to update
-    gem update vagrant
+```bash
+gem install vagrant
+#If you have to update
+gem update vagrant
+```
 
 If you are using rbenv don't forget to update the commands database, otherwise it won't find your new _vagrant_
 
-    rbenv rehash
+```bash
+rbenv rehash
+```
 
 ### Usage
 
-    host_name=ruby-nodejs vagrant up
+```bash
+host_name=ruby-nodejs vagrant up
+```
 
 To extend a machine with another env:
 
-    host_name=java vagrant reload
+```bash
+host_name=java vagrant reload
+```
 
 ### Current environments
 You can combine any of those names on the provision\_name, but it *must* be a valid hostname
@@ -92,7 +104,9 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 
 By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
 
-    host_name=nodots-redis vagrant up
+```bash
+host_name=nodots-redis vagrant up
+```
 
 ### Using your own dotfiles
 
@@ -103,7 +117,9 @@ There a minor considerations to use your own dotfiles:
 * It must contain an excutable file called install.sh in the root of your repo. It will be called to setup your dotfiles configurations.
 * To make sure it doesn't run everytime you turn your vagrant on, add this to the end of the file:
 
-    touch $HOME/.baseline_dotfiles
+```bash
+touch $HOME/.baseline_dotfiles
+```
     
 After making sure you have all the requirements in place, change on the file _puppet/config.yaml_ to point to your repo.
 
@@ -118,11 +134,13 @@ Vagrant's configuration allows you to either use a single vm environments or use
 Sometimes you want to try out some other stack while still keeping the current one you are using. Or test networking with different stacks.
 Toggling the enviroment variable use_default_box, baseline will allow you to bootstrap multiple machines or a single machine.
 
-    host_name=nodejs use_default_box=false vagrant up
-    host_name=nodejs use_default_box=false vagrant ssh
-    host_name=nodots-mongo use_default_box=false vagrant up
-    host_name=nodots-mongo use_default_box=false vagrant destroy
-    host_name=nodejs use_default_box=false vagrant destroy
+```bash
+host_name=nodejs use_default_box=false vagrant up
+host_name=nodejs use_default_box=false vagrant ssh
+host_name=nodots-mongo use_default_box=false vagrant up
+host_name=nodots-mongo use_default_box=false vagrant destroy
+host_name=nodejs use_default_box=false vagrant destroy
+```
 
 
 ### Extending with your own puppet scripts
@@ -138,10 +156,9 @@ You can achieve that extending the project using the _puppet/custom_ folder. The
 Ssh allows you to forward the X server to your computer. If you want to use a program with a grafical interface or want to code an app that generates graphics, you can ask `vagrant` to forward it for you.
 
 Just goes with:
-
-    vagrat ssh -- -X
-
-
+```ruby
+vagrat ssh -- -X
+```
 
 ---
 
@@ -151,10 +168,11 @@ The bootstrap relies on the _$hostname_ property set up by puppet. You might not
 
 You can override the _$hostname_ property that puppet defines before running your command. e.g
 
-    # cd to the puppet dir
-    cd baseline/puppet
-    FACTER_hostname=redis puppet apply --confdir . init.pp
-
+```ruby
+# cd to the puppet dir
+cd baseline/puppet
+FACTER_hostname=redis puppet apply --confdir . init.pp
+```
 
 ### Shortcut to provision your machine
 
