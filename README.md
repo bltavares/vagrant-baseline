@@ -157,7 +157,7 @@ Ssh allows you to forward the X server to your computer. If you want to use a pr
 
 Just goes with:
 ```ruby
-vagrat ssh -- -X
+vagrant ssh -- -X
 ```
 
 ---
