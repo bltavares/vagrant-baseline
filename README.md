@@ -1,5 +1,5 @@
 # Baseline
-## Dev box with batteries included
+## Dev sandbox with batteries included
 
 The idea is to provide a simple dev box with tools.
 
@@ -45,7 +45,7 @@ git clone https://github.com/bltavares/vagrant-baseline.git baseline
 cd baseline
 ```
 
-Make sure you have (_vagrant_)[http://vagrantup.com] installed before running any of the following commands.
+Make sure you have [_vagrant_](http://vagrantup.com) installed before running any of the following commands.
 
 
 ### Usage
