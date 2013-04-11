@@ -2,6 +2,18 @@ class baseline::lang::ruby {
 
   include gcc
 
+  $packages = [
+    'libcurl4-openssl-dev',
+    'libxml2-dev',
+    'libxslt-dev',
+    'zlib1g-dev',
+  ]
+  package {
+    $packages:
+      ensure    => 'latest',
+      ;
+  }
+
   class { 'rbenv': }
   rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '2.0.0-p0': global => true }
 
