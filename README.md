@@ -45,25 +45,8 @@ git clone https://github.com/bltavares/vagrant-baseline.git baseline
 cd baseline
 ```
 
-If you have _bundler_ you can use the _Gemfile_ to install _vagrant_
+Make sure you have (_vagrant_)[http://vagrantup.com] installed before running any of the following commands.
 
-```bash
-bundle install
-```
-
-If you don't have _bundler_ you can install it manually
-
-```bash
-gem install vagrant
-#If you have to update
-gem update vagrant
-```
-
-If you are using rbenv don't forget to update the commands database, otherwise it won't find your new _vagrant_
-
-```bash
-rbenv rehash
-```
 
 ### Usage
 
