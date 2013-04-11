@@ -1,8 +1,7 @@
 class baseline {
 
   include git
-  include apt::update
-  Class[apt::update] -> Package <| provider == 'apt' |>
+  Exec['update apt'] -> Package <| |>
 
   $packages = [
     'aptitude',
@@ -19,6 +18,11 @@ class baseline {
       ensure  => 'latest',
       require => Package['git-core'],
       ;
+  }
+
+  exec { 'update apt':
+    command => '/usr/bin/apt-get update',
+    ;
   }
 
   class { 'avahi':
