@@ -18,6 +18,7 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Skip setting ZSH as the default shell](#skip-setting-zsh-as-the-default-shell)
   - [Working with multiple VMs](#working-with-multiple-vms)
   - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
+  - [Debugging](#debugging)
   - [Using GUI programs](#using-gui-programs)
   - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
   - [Shortcut to provision your machine](#shortcut-to-provision-your-machine)
@@ -133,6 +134,13 @@ Or maybe you just want to have some packages installed, or removed.
 
 You can achieve that extending the project using the _puppet/custom_ folder. There is an example file to guide you in the path to extend your vagrant machine.
 
+### Debugging
+
+When building puppet scripts, a verbose output can help. In those cases we provide the `DEBUG` variable to increase the output, show debug messages and create dependency graphs
+
+```bash
+DEBUG=1 host_name=redis vagrant up
+```
 
 ### Using GUI programs
 

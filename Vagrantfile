@@ -74,9 +74,12 @@ Vagrant::Config.run do |config|
   # #   content => "Welcome to your Vagrant-built virtual machine!
   # #               Managed by Puppet.\n"
   # # }
+  puppet_args = [ '--confdir .' ]
+  puppet_args += ['--verbose', '--debug', '--graph'] if ENV['DEBUG']
+
   options = {
-    options:     ['--confdir .'],
-    facter:      { fqdn: 'precise.vagrant' }
+    options: puppet_args,
+    facter:  { fqdn: 'precise.vagrant' }
   }
 
   config.vm.provision :puppet, options do |puppet|

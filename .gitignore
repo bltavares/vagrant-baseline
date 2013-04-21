@@ -1,3 +1,4 @@
 puppet/modules/baseline/pkg
 puppet/custom/*
 .vagrant
+*.dot
