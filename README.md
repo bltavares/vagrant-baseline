@@ -77,7 +77,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | lua      | 5.2 + luarocks                      |                                           |
 | mongo    | latest from 10\_gen repo            | *port:* 27017                             |
 | nodejs   | latest from ppa:chris.lea           |                                           |
-| nodots   | skip setup of dot files             |                                           |
+| dots     | setup dot files                     |                                           |
 | postgres | 9.2                                 | *username:* postgres *password:* postgres |
 | prolog   | swipl 6.2.6                         |                                           |
 | python   | 2.7 + pip and virtualenv            |                                           |
@@ -86,15 +86,14 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | rust     | 0.5.1                               |                                           |
 | scala    | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
 
-By default, it load up my dot files (http://github.com/bltavares/dot-files). To skip it, combine on the provision\_name  _nodots_ e.g.:
-
-```bash
-host_name=nodots-redis vagrant up
-```
-
 ### Using your own dotfiles
 
-By default the manifest privison my own dotfiles (http://github.com/bltavares/dot-files). You can change to point to your dotfiles and have it loaded up.
+By default the manifest privison my own dotfiles (http://github.com/bltavares/dot-files) when you ask for it. You can change `puppet/config.yaml` to point to your dotfiles and have it loaded up.
+
+```bash
+host_name=dots-redis vagrant up
+```
+
 There a minor considerations to use your own dotfiles:
 
 * It must be a git repo
@@ -119,11 +118,11 @@ Sometimes you want to try out some other stack while still keeping the current o
 Toggling the enviroment variable use_default_box, baseline will allow you to bootstrap multiple machines or a single machine.
 
 ```bash
-host_name=nodejs use_default_box=false vagrant up
-host_name=nodejs use_default_box=false vagrant ssh
-host_name=nodots-mongo use_default_box=false vagrant up
-host_name=nodots-mongo use_default_box=false vagrant destroy
-host_name=nodejs use_default_box=false vagrant destroy
+host_name=dots-nodejs use_default_box=false vagrant up
+host_name=dots-nodejs use_default_box=false vagrant ssh
+host_name=mongo use_default_box=false vagrant up
+host_name=mongo use_default_box=false vagrant destroy
+host_name=dots-nodejs use_default_box=false vagrant destroy
 ```
 
 
@@ -171,7 +170,7 @@ Include the following function on your .bashrc or .zshrc, or just paste it on yo
 
 ```bash
 provision () {
-    PROVISION=$(echo "nodots $@" | tr " " "-" | sed 's/-$//')
+    PROVISION=$(echo "$@" | tr " " "-")
     (
         cd ${PUPPET_FILES:-/tmp/vagrant-puppet/manifests}
         sudo FACTER_hostname=$PROVISION puppet apply --confdir . init.pp --verbose --debug

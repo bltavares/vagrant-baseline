@@ -82,7 +82,7 @@ node default {
     class { 'baseline::lang::erlang': version => '1:15.b.3-2~ubuntu~precise' } -> class { 'baseline::couchdb': }
   }
 
-  if $hostname !~ /\bnodots\b/ {
+  if $hostname =~ /\bdots\b/ {
     include baseline::dotfiles
   }
 
