@@ -15,7 +15,7 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Usage](#usage)
   - [Current environments](#current-environments)
   - [Using your own dotfiles](#using-your-own-dotfiles)
-  - [Skip setting ZSH as the default shell](#skip-setting-zsh-as-the-default-shell)
+  - [Setting ZSH as the default shell](#setting-zsh-as-the-default-shell)
   - [Working with multiple VMs](#working-with-multiple-vms)
   - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
   - [Debugging](#debugging)
@@ -107,9 +107,9 @@ touch $HOME/.baseline_dotfiles
 After making sure you have all the requirements in place, change on the file _puppet/config.yaml_ to point to your repo.
 
 
-### Skip setting ZSH as the default shell
+### Setting ZSH as the default shell
 
-To skip setting zsh as the default shell for your user, change the option under _puppet/config.yaml_.
+To set zsh as the default shell for your user, change the option under _puppet/config.yaml_.
 
 ### Working with multiple VMs
 
