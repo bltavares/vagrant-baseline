@@ -1,5 +1,9 @@
-# Baseline
-## Dev sandbox with batteries included
+# Vagrant Baseline
+## Core: Dev sandbox with batteries included
+
+---
+# Check [Baseline](https://github.com/bltavares/baseline) for commands
+---
 
 The idea is to provide a simple dev box with tools.
 
@@ -12,16 +16,12 @@ Now you can mess up all the files in your dev box, and discard when you think it
 ### Table of contents
   - [Requirements](#requirements)
   - [Installation](#installation)
-  - [Usage](#usage)
   - [Current environments](#current-environments)
   - [Using your own dotfiles](#using-your-own-dotfiles)
   - [Setting ZSH as the default shell](#setting-zsh-as-the-default-shell)
   - [Working with multiple VMs](#working-with-multiple-vms)
   - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
   - [Debugging](#debugging)
-  - [Using GUI programs](#using-gui-programs)
-  - [Experienced usage: Running setup using puppet apply](#experienced-usage-running-setup-using-puppet-apply)
-  - [Shortcut to provision your machine](#shortcut-to-provision-your-machine)
 
 ### Requirements
 
@@ -39,27 +39,7 @@ The cache is only directed to the .deb packages. It still compiles some packages
 
 ### Installation
 
-First of all, clone the repo:
-
-```bash
-git clone https://github.com/bltavares/vagrant-baseline.git baseline
-cd baseline
-```
-
-Make sure you have [_vagrant_](http://vagrantup.com) installed before running any of the following commands.
-
-
-### Usage
-
-```bash
-host_name=ruby-nodejs vagrant up
-```
-
-To extend a machine with another env:
-
-```bash
-host_name=java vagrant reload
-```
+Check [Baseline](https://github.com/bltavares/baseline) for command line commands
 
 ### Current environments
 You can combine any of those names on the provision\_name, but it *must* be a valid hostname
@@ -91,7 +71,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 By default the manifest privison my own dotfiles (http://github.com/bltavares/dot-files) when you ask for it. You can change `puppet/config.yaml` to point to your dotfiles and have it loaded up.
 
 ```bash
-host_name=dots-redis vagrant up
+baseline up redis dots
 ```
 
 There a minor considerations to use your own dotfiles:
@@ -105,7 +85,6 @@ touch $HOME/.baseline_dotfiles
 ```
     
 After making sure you have all the requirements in place, change on the file _puppet/config.yaml_ to point to your repo.
-
 
 ### Setting ZSH as the default shell
 
@@ -140,52 +119,3 @@ When building puppet scripts, a verbose output can help. In those cases we provi
 ```bash
 DEBUG=1 host_name=redis vagrant up
 ```
-
-### Using GUI programs
-
-Ssh allows you to forward the X server to your computer. If you want to use a program with a grafical interface or want to code an app that generates graphics, you can ask `vagrant` to forward it for you.
-
-Just goes with:
-```ruby
-vagrant ssh -- -X
-```
-
----
-
-### Experienced usage: Running setup using _puppet apply_
-
-The bootstrap relies on the _$hostname_ property set up by puppet. You might not want to change the hostname of your running computer, for example, and might want to provision your computer with those scripts.
-
-You can override the _$hostname_ property that puppet defines before running your command. e.g
-
-```ruby
-# cd to the puppet dir
-cd baseline/puppet
-FACTER_hostname=redis puppet apply --confdir . init.pp
-```
-
-### Shortcut to provision your machine
-
-Include the following function on your .bashrc or .zshrc, or just paste it on your terminal to have access to a shortcut to provision your machines.
-
-```bash
-provision () {
-    PROVISION=$(echo "$@" | tr " " "-")
-    (
-        cd ${PUPPET_FILES:-/tmp/vagrant-puppet/manifests}
-        sudo FACTER_hostname=$PROVISION puppet apply --confdir . init.pp --verbose --debug
-    )
-}
-```
-
-After that you can run the provision as the following:
-```bash
-provision lua clojure redis
-```
-
-If you had it checked out on another path that is not set by the Vagrantfile, you can customize it as the following:
-```bash
-export PUPPET_FILES=/path/to/the/configurations
-provision scala mongo
-```
-
