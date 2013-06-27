@@ -11,6 +11,7 @@ class baseline {
     'mercurial',
     'vim',
     'zsh',
+    'tmux',
   ]
 
   package {
