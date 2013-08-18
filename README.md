@@ -48,6 +48,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | ---      | ---                                 | ---                                       |
 | clojure  | lein latest stable version          | includes java 7                           |
 | couchdb  | 1.3.1 + erlang R15B                 | *port:* 5984 *listen on:* 127.0.0.1       |
+| dots     | setup dot files                     |                                           |
 | elixir   | 0.10.1                              | includes latest erlang                    |
 | erlang   | latest from erlang-solutions.com    |                                           |
 | go       | 1.0.3                               |                                           |
@@ -57,10 +58,10 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | lua      | 5.2 + luarocks                      |                                           |
 | mongo    | latest from 10\_gen repo            | *port:* 27017                             |
 | nodejs   | latest from ppa:chris.lea           |                                           |
-| dots     | setup dot files                     |                                           |
 | postgres | 9.2                                 | *username:* postgres *password:* postgres |
 | prolog   | swipl 6.2.6                         |                                           |
 | python   | 2.7 + pip and virtualenv            |                                           |
+| rabbitmq | latest from official apt repo       | *port:* 5672                              |
 | redis    | 2.6.10                              | *port:* 6379                              |
 | ruby     | rbenv + ruby 2.0                    |                                           | 
 | rust     | 0.5.1                               |                                           |

@@ -86,6 +86,10 @@ node default {
     include baseline::zeromq
   }
 
+  if $hostname =~ /\brabbitmq\b/ {
+    class { 'baseline::lang::erlang': } -> class { '::rabbitmq': erlang_manage => false }
+  }
+
   if $hostname =~ /\bdots\b/ {
     include baseline::dotfiles
   }
