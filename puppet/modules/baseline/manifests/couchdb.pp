@@ -11,10 +11,9 @@ class baseline::couchdb {
   ]
   package { $packages:
     ensure  => latest,
-  } -> Exec['install couchdb']
+  } -> Exec['download couchdb']
 
-  $baseline_user = hiera('baseline_user', 'vagrant')
-  $couchdb_basename = 'apache-couchdb-1.2.1'
+  $couchdb_basename = 'apache-couchdb-1.3.1'
 
   exec {
     'create couchdb user':
@@ -23,17 +22,18 @@ class baseline::couchdb {
       ;
 
     'download couchdb':
-      command => "/usr/bin/curl http://www.us.apache.org/dist/couchdb/1.2.1/${couchdb_basename}.tar.gz | /bin/tar xz",
+      command => "/usr/bin/curl http://www.us.apache.org/dist/couchdb/source/1.3.1/${couchdb_basename}.tar.gz | /bin/tar xz",
       cwd     => '/opt',
       creates => "/opt/${couchdb_basename}",
       require => Package['curl'],
       ;
 
     'configure and make couchdb':
-      command => "/opt/${couchdb_basename}/configure && /usr/bin/env HOME=${baseline_user} /usr/bin/make",
-      creates => "/opt/${couchdb_basename}/Makefile",
-      cwd     => "/opt/${couchdb_basename}",
-      require => [Class[gcc] , Exec['download couchdb']],
+      command     => "/opt/${couchdb_basename}/configure && /usr/bin/make",
+      creates     => "/opt/${couchdb_basename}/Makefile",
+      cwd         => "/opt/${couchdb_basename}",
+      environment => 'HOME=/root',
+      require     => [Class[gcc] , Exec['download couchdb'], Class[baseline::libtool]],
       ;
 
     'install couchdb':
