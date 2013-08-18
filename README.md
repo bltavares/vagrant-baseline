@@ -17,6 +17,7 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Current environments](#current-environments)
+  - [Extending an already booted box](#extending-an-already-booted-box)
   - [Using your own dotfiles](#using-your-own-dotfiles)
   - [Setting ZSH as the default shell](#setting-zsh-as-the-default-shell)
   - [Working with multiple VMs](#working-with-multiple-vms)
@@ -66,6 +67,17 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | rust     | 0.5.1                               |                                           |
 | scala    | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
 | zeromq   | 3.2.3                               |                                           |
+
+
+### Extending an already booted box
+
+Baseline commes with a command to provision more of the supported environment from inside the box.
+Use the `provision` command to do so.
+
+```bash
+vagrant ssh
+vagrant@vagrant $ provision redis lua
+```
 
 ### Using your own dotfiles
 
