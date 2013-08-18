@@ -2,12 +2,12 @@ class baseline::couchdb {
 
   include gcc
   include baseline::checkinstall
+  include baseline::libtool
 
   $packages = [
     'libmozjs185-dev',
     'libicu-dev',
     'libcurl4-gnutls-dev',
-    'libtool',
   ]
   package { $packages:
     ensure  => latest,
