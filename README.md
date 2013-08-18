@@ -1,9 +1,8 @@
 # Vagrant Baseline
 ## Core: Dev sandbox with batteries included
+---
 
----
-# Check [Baseline](https://github.com/bltavares/baseline) for commands
----
+### Check [Baseline](https://github.com/bltavares/baseline) for command-line support
 
 The idea is to provide a simple dev box with tools.
 
