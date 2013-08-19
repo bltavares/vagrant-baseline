@@ -1,18 +1,39 @@
 # == Class: rbenv
 #
-# Full description of class rbenv here.
-#
-# === Parameters
-#
-# None
+# This module manages rbenv on Ubuntu. The default installation directory
+# allows rbenv to available for all users and applications.
 #
 # === Variables
 #
-# None
+# [$install_dir]
+#   This is where rbenv will be installed to. If you do not
+#   specify this parameter, it will use the default in rbenv::params.
+#   Default: $rbenv::params::install_dir
+#   This variable is required.
+#
+# [$owner]
+#   This defines who owns the rbenv install directory. If you do not
+#   specify this parameter, it will use the default in rbenv::params.
+#   Default: $rbenv::params::owner
+#   This variable is required.
+#
+# [$group]
+#   This defines the group membership for rbenv. If you do not
+#   specify this parameter, it will use the default in rbenv::params.
+#   Default: $rbenv::params::group
+#   This variable is required.
+#
+# === Requires
+#
+# You will need to install the git package on the host system.
 #
 # === Examples
 #
-#  class { rbenv: }
+# class { rbenv: }  #Uses the default parameters from rbenv::params
+#
+# class { rbenv:  #Uses a user-defined installation path
+#   install_dir => '/opt/rbenv',
+# }
 #
 # === Authors
 #
@@ -22,29 +43,30 @@
 #
 # Copyright 2013 Justin Downing
 #
-class rbenv {
-
-  require git
-
-  include rbenv::params
+class rbenv(
+  $install_dir = $rbenv::params::install_dir,
+  $owner       = $rbenv::params::owner,
+  $group       = $rbenv::params::group
+) inherits rbenv::params {
 
   exec { 'git-clone-rbenv':
-    command   => "/usr/bin/git clone \
-                  ${rbenv::params::repo_path} \
-                  ${rbenv::params::install_dir}",
-    creates   => $rbenv::params::install_dir
+    command => "/usr/bin/git clone \
+               ${rbenv::params::repo_path} \
+               ${install_dir}",
+    creates => $install_dir,
+    user    => $owner,
   }
 
   file { [
-    $rbenv::params::install_dir,
-    "${rbenv::params::install_dir}/plugins",
-    "${rbenv::params::install_dir}/shims",
-    "${rbenv::params::install_dir}/versions"
+    $install_dir,
+    "${install_dir}/plugins",
+    "${install_dir}/shims",
+    "${install_dir}/versions"
   ]:
-    ensure    => directory,
-    owner     => 'root',
-    group     => 'admin',
-    mode      => '0775',
+    ensure  => directory,
+    owner   => $owner,
+    group   => $group,
+    mode    => '0775',
   }
 
   file { '/etc/profile.d/rbenv.sh':
@@ -53,6 +75,6 @@ class rbenv {
     mode      => '0775'
   }
 
-  Exec['git-clone-rbenv'] -> File['/usr/local/rbenv']
+  Exec['git-clone-rbenv'] -> File[$install_dir]
 
 }
