@@ -11,6 +11,9 @@ node default {
     include baseline::lang::ruby
   }
 
+  if $hostname =~ /\bruby193\b/ {
+    include baseline::lang::ruby193
+  }
   if $hostname =~ /\bnodejs\b/ {
     include baseline::lang::nodejs
   }
