@@ -15,7 +15,7 @@ class baseline::lang::ruby {
   }
 
   class { 'rbenv': }
-  rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '2.0.0-p0': global => true }
+  rbenv::plugin { 'sstephenson/ruby-build': }-> rbenv::build { '2.0.0-p247': global => true }
 
   $baseline_user = hiera('baseline_user','vagrant')
   exec {
