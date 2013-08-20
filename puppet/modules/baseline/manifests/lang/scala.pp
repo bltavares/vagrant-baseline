@@ -1,13 +1,13 @@
 class baseline::lang::scala {
 
-  $scala_basename = 'scala-2.10.0'
+  $scala_basename = 'scala-2.10.2'
   $scala_path = "/opt/${scala_basename}/bin"
 
   $baseline_user = hiera('baseline_user')
 
   exec {
     'download scala':
-      command => "/usr/bin/curl http://www.scala-lang.org/downloads/distrib/files/${scala_basename}.tgz | /bin/tar xz",
+      command => "/usr/bin/curl http://www.scala-lang.org/files/archive/${scala_basename}.tgz | /bin/tar xz",
       cwd     => '/opt',
       creates => "/opt/${scala_basename}",
       require => Package['curl'],
