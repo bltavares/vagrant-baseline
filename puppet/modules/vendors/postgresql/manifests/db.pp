@@ -18,6 +18,7 @@
 #   [*grant*]       - privilege to grant user. defaults to 'all'.
 #   [*tablespace*]  - database tablespace. default to use the template database's tablespace.
 #   [*locale*]      - locale for database. defaults to 'undef' (effectively 'C').
+#   [*istemplate*]  - determines whether or not to define database as a template. defaults to false.
 #
 # Actions:
 #
@@ -36,21 +37,23 @@
 define postgresql::db (
   $user,
   $password,
-  $charset     = $postgresql::params::charset,
-  $locale      = $postgresql::params::locale,
-  $grant       = 'ALL',
-  $tablespace = undef
+  $charset    = $postgresql::params::charset,
+  $locale     = $postgresql::params::locale,
+  $grant      = 'ALL',
+  $tablespace = undef,
+  $istemplate = false
 ) {
   include postgresql::params
 
   postgresql::database { $name:
     # TODO: ensure is not yet supported
-    #ensure     => present,
-    charset     => $charset,
-    tablespace  => $tablespace,
-    #provider   => 'postgresql',
-    require     => Class['postgresql::server'],
-    locale      => $locale,
+    #ensure    => present,
+    charset    => $charset,
+    tablespace => $tablespace,
+    #provider  => 'postgresql',
+    require    => Class['postgresql::server'],
+    locale     => $locale,
+    istemplate => $istemplate,
   }
 
   if ! defined(Postgresql::Database_user[$user]) {

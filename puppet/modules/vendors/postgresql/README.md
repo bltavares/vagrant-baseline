@@ -61,6 +61,7 @@ For a more customized, less restrictive configuration:
         'listen_addresses'           => '*',
         'ipv4acls'                   => ['hostssl all johndoe 192.168.0.0/24 cert'],
         'manage_redhat_firewall'     => true,
+        'manage_pg_hba_conf'         => false,
         'postgres_password'          => 'TPSrep0rt!',
       },
     }
@@ -93,16 +94,24 @@ There are many ways to set up a postgres database using the `postgresql::db` cla
 To manage users, roles and permissions:
 
     postgresql::database_user{'marmot':
-      password => 'foo',
+      password_hash => 'foo',
     }
 
-    postgresql::database_grant{'test1':
-      privilege   => 'ALL',
-      db          => 'test1',
-      role        => 'dan',
+    postgresql::database_grant { 'test1':
+      privilege => 'ALL',
+      db        => 'test1',
+      role      => 'dan',
     }
 
-In this example, you would grant ALL privileges on the test1 database to the user or group specified by dan.
+    postgresql::table_grant { 'my_table of test2':
+      privilege => 'ALL',
+      table     => 'my_table',
+      db        => 'test2',
+      role      => 'dan',
+    }
+
+
+In this example, you would grant ALL privileges on the test1 database and on the `my_table` table of the test2 database to the user or group specified by dan.
 
 At this point, you would just need to plunk these database name/username/password values into your PuppetDB config files, and you are good to go.
 
@@ -116,14 +125,18 @@ Classes:
 * [postgresql](#class-postgresql)
 * [postgresql::server](#class-postgresqlserver)
 * [postgresql::client](#class-postgresqlclient)
+* [postgresql::contrib](#class-postgresqlcontrib)
 * [postgresql::devel](#class-postgresqldevel)
 * [postgresql::java](#class-postgresqljava)
+* [postgresql::python](#class-postgresqlpython)
+* [postgresql::plperl](#class-postgresqlplperl)
 
 Resources:
 
 * [postgresql::db](#resource-postgresqldb)
 * [postgresql::database](#resource-postgresqldatabase)
 * [postgresql::database_grant](#resource-postgresqldatabasegrant)
+* [postgresql::table_grant](#resource-postgresqltablegrant)
 * [postgresql::role](#resource-postgresqlrole)
 * [postgresql::tablespace](#resource-postgresqltablespace)
 * [postgresql::validate_db_connection](#resource-postgresqlvalidatedbconnection)
@@ -143,7 +156,7 @@ This class is used to configure the main settings for this module, to be used by
 
 For example, if you wanted to overwrite the default `locale` and `charset` you could use the following combination:
 
-    class { 'postgres':
+    class { 'postgresql':
       charset => 'UTF8',
       locale  => 'en_NG',
     }->
@@ -164,8 +177,47 @@ This will set the default database locale for all databases created with this mo
 ####`charset`
 This will set the default charset for all databases created with this module. On certain operating systems this will be used during the `template1` initialization as well so it becomes a default outside of the module as well. Defaults to `UTF8`.
 
+####`datadir`
+This setting can be used to override the default postgresql data directory for the target platform. If not specified, the module will use whatever directory is the default for your OS distro.
+
+####`confdir`
+This setting can be used to override the default postgresql configuration directory for the target platform. If not specified, the module will use whatever directory is the default for your OS distro.
+
+####`bindir`
+This setting can be used to override the default postgresql binaries directory for the target platform. If not specified, the module will use whatever directory is the default for your OS distro.
+
+####`client_package_name`
+This setting can be used to override the default postgresql client package name. If not specified, the module will use whatever package name is the default for your OS distro.
+
+####`server_package_name`
+This setting can be used to override the default postgresql server package name. If not specified, the module will use whatever package name is the default for your OS distro.
+
+####`contrib_package_name`
+This setting can be used to override the default postgresql contrib package name. If not specified, the module will use whatever package name is the default for your OS distro.
+
+####`devel_package_name`
+This setting can be used to override the default postgresql devel package name. If not specified, the module will use whatever package name is the default for your OS distro.
+
+####`java_package_name`
+This setting can be used to override the default postgresql java package name. If not specified, the module will use whatever package name is the default for your OS distro.
+
+####`service_name`
+This setting can be used to override the default postgresql service name. If not specified, the module will use whatever service name is the default for your OS distro.
+
+####`user`
+This setting can be used to override the default postgresql super user and owner of postgresql related files in the file system. If not specified, the module will use the user name 'postgres'.
+
+####`group`
+This setting can be used to override the default postgresql user group to be used for related files in the file system. If not specified, the module will use the group name 'postgres'.
+
+####`run_initdb`
+This setting can be used to explicitly call the initdb operation after server package is installed and before the postgresql service is started. If not specified, the module will decide whether to call initdb or not depending on your OS distro.
+
 ###Class: postgresql::server
 Here are the options that you can set in the `config_hash` parameter of `postgresql::server`:
+
+####`ensure`
+This value default to `present`. When set to `absent` it will remove all packages, configuration and data so use this with extreme caution.
 
 ####`postgres_password`
 This value defaults to `undef`, meaning the super user account in the postgres database is a user called `postgres` and this account does not have a password. If you provide this setting, the module will set the password for the `postgres` user to your specified value.
@@ -175,6 +227,9 @@ This value defaults to `localhost`, meaning the postgres server will only accept
 
 ####`manage_redhat_firewall`
 This value defaults to `false`. Many RedHat-based distros ship with a fairly restrictive firewall configuration which will block the port that postgres tries to listen on. If you’d like for the puppet module to open this port for you (using the [puppetlabs-firewall](http://forge.puppetlabs.com/puppetlabs/firewall) module), change this value to true. *[This parameter is likely to change in future versions.  Possible changes include support for non-RedHat systems and finer-grained control over the firewall rule (currently, it simply opens up the postgres port to all TCP connections).]*
+
+####`manage_pg_hba_conf`
+This value defaults to `true`. Whether or not manage the pg_hba.conf. If set to `true`, puppet will overwrite this file. If set to `false`, puppet will not modify the file.
 
 ####`ip_mask_allow_all_users`
 This value defaults to `127.0.0.1/32`. By default, Postgres does not allow any database user accounts to connect via TCP from remote machines. If you’d like to allow them to, you can override this setting. You might set it to `0.0.0.0/0` to allow database users to connect from any remote machine, or `192.168.0.0/16` to allow connections from any machine on your local 192.168 subnet.
@@ -204,6 +259,15 @@ The name of the postgresql client package.
 ####`package_ensure`
 The ensure parameter passed on to postgresql client package resource.
 
+###Class: postgresql::contrib
+Installs the postgresql contrib package.
+
+####`package_name`
+The name of the postgresql client package.
+
+####`package_ensure`
+The ensure parameter passed on to postgresql contrib package resource.
+
 ###Class: postgresql::devel
 Installs the packages containing the development libraries for PostgreSQL.
 
@@ -221,6 +285,24 @@ The name of the postgresql java package.
 
 ####`package_ensure`
 The ensure parameter passed on to postgresql java package resource.
+
+###Class: postgresql::python
+This class installs the postgresql Python libraries. For customer requirements you can customise the following parameters:
+
+####`package_name`
+The name of the postgresql python package.
+
+####`package_ensure`
+The ensure parameter passed on to postgresql python package resource.
+
+###Class: postgresql::plperl
+This class installs the PL/Perl procedural language for postgresql.
+
+####`package_name`
+The name of the postgresql PL/Perl package.
+
+####`package_ensure`
+The ensure parameter passed on to postgresql PL/Perl package resource.
 
 ###Resource: postgresql::db
 This is a convenience resource that creates a database, user and assigns necessary permissions in one go.
@@ -253,11 +335,17 @@ Override the locale during creation of the database. Defaults to the default def
 ####`grant`
 Grant permissions during creation. Defaults to `ALL`.
 
+####`istemplate`
+Define database as a template. Defaults to `false`.
+
 ###Resource: postgresql::database
 This defined type can be used to create a database with no users and no permissions, which is a rare use case.
 
 ####`namevar`
 Name of the database to create.
+
+####`owner`
+Name of the database user who should be set as the owner of the database.  Defaults to `$postgresql::params::user`.
 
 ####`tablespace`
 Tablespace for where to create this database. Defaults to the defaults defined during PostgreSQL installation.
@@ -268,6 +356,9 @@ Override the character set during creation of the database. Defaults to the defa
 ####`locale`
 Override the locale during creation of the database. Defaults to the default defined during installation.
 
+####`istemplate`
+Define database as a template. Defaults to `false`.
+
 ###Resource: postgresql::database\_grant
 This defined type manages grant based access privileges for users. Consult the PostgreSQL documentation for `grant` for more information.
 
@@ -275,10 +366,34 @@ This defined type manages grant based access privileges for users. Consult the P
 Used to uniquely identify this resource, but functionality not used during grant.
 
 ####`privilege`
-Can be one of `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `REFERENCES`, `TRIGGER`, `USAGE`, `TEMPORARY`, `TEMP`, `CONNECT`. `ALL` is used as a synonym for `CREATE`. If you need to add multiple privileges, a space delimited string can be used.
+Can be one of `SELECT`, `TEMPORARY`, `TEMP`, `CONNECT`. `ALL` is used as a synonym for `CREATE`. If you need to add multiple privileges, a space delimited string can be used.
 
 ####`db`
 Database to grant access to.
+
+####`role`
+Role or user whom you are granting access for.
+
+####`psql_db`
+Database to execute the grant against. This should not ordinarily be changed from the default, which is `postgres`.
+
+####`psql_user`
+OS user for running `psql`. Defaults to the default user for the module, usually `postgres`.
+
+###Resource: postgresql::table\_grant
+This defined type manages grant based access privileges for users. Consult the PostgreSQL documentation for `grant` for more information.
+
+####`namevar`
+Used to uniquely identify this resource, but functionality not used during grant.
+
+####`privilege`
+Can be one of `SELECT`, `INSERT`, `UPDATE`, `REFERENCES`. `ALL` is used as a synonym for `CREATE`. If you need to add multiple privileges, a space delimited string can be used.
+
+####`table`
+Table to grant access on.
+
+####`db`
+Database of table.
 
 ####`role`
 Role or user whom you are granting access for.
@@ -309,6 +424,12 @@ Weither to grant login capability for the new role. Defaults to `false`.
 
 ####`superuser`
 Weither to grant super user capability for the new role. Defaults to `false`.
+
+####`replication`
+If `true` provides replication capabilities for this role. Defaults to `false`.
+
+####`connection_limit`
+Specifies how many concurrent connections the role can make. Defaults to `-1` meaning no limit.
 
 ###Resource: postgresql::tablespace
 This defined type can be used to create a tablespace. For example:
@@ -360,7 +481,7 @@ The name of the database you wish to test.
 Username to connect with.
 
 ####`database_password`
-Password to connect with.
+Password to connect with. Can be left blank, but that is not recommended.
 
 ###Resource: postgresql::pg\_hba\_rule
 This defined type allows you to create an access rule for `pg_hba.conf`. For more details see the [PostgreSQL documentation](http://www.postgresql.org/docs/8.2/static/auth-pg-hba-conf.html).
@@ -442,28 +563,35 @@ You can read the complete module contribution guide [on the Puppet Labs wiki.](h
 
 ### Tests
 
-There are two types of tests distributed with the module. The first set is the 'traditional' Puppet manifest-style smoke tests. You can use these to experiment with the module on a virtual machine or other test environment, via `puppet apply`. You should see the following files in the `tests` directory.
+There are two types of tests distributed with the module. Unit tests with rspec-puppet and system tests using rspec-system.
 
-In addition to these manifest-based smoke tests, there are some ruby rspec tests in the spec directory. These tests run against a VirtualBox VM, so they are actually testing the live application of the module on a real, running system. To do this, you must install and setup an [RVM](http://beginrescueend.com/) with [vagrant](http://vagrantup.com/), [sahara](https://github.com/jedi4ever/sahara), and [rspec](http://rspec.info/):
+For unit testing, make sure you have:
 
-    $ curl -L get.rvm.io | bash -s stable
-    $ rvm install 1.9.3
-    $ rvm use --create 1.9.3@puppet-postgresql
-    $ bundle install
+* rake
+* bundler
 
-Run the system tests:
+Install the necessary gems:
 
-    $ rake spec:system
+    bundle install --path=vendor
 
-The system test suite will snapshot the VM and rollback between each test. If you want to only run the tests against an individual distro, you can do run:
+And then run the unit tests:
 
-    $ rspec spec/distros/ubuntu_lucid_64
-
-We also have some unit tests that utilize rspec-puppet for faster iteration if required:
-
-    $ rake spec
+    bundle exec rake spec
 
 The unit tests are ran in Travis-CI as well, if you want to see the results of your own tests regsiter the service hook through Travis-CI via the accounts section for your Github clone of this project.
+
+If you want to run the system tests, make sure you also have:
+
+* vagrant > 1.2.x
+* Virtualbox > 4.2.10
+
+Then run the tests using:
+
+    bundle exec rake spec:system
+
+To run the tests on different operating systems, see the sets available in .nodeset.yml and run the specific set with the following syntax:
+
+    RSPEC_SET=debian-607-x64 bundle exec rake spec:system
 
 Transfer Notice
 ----------------

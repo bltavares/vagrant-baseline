@@ -78,8 +78,8 @@ node default {
     }
   }
 
-  if $hostname =~ /\bpostgre\b/ {
-    include baseline::postgre
+  if $hostname =~ /\bpostgresql\b/ {
+    include baseline::postgres
   }
 
   if $hostname =~ /\bcouchdb\b/ {

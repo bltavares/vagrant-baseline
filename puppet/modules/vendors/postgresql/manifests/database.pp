@@ -21,11 +21,20 @@
 
 define postgresql::database(
   $dbname   = $title,
+  $owner = $postgresql::params::user,
   $tablespace = undef,
   $charset  = $postgresql::params::charset,
-  $locale   = $postgresql::params::locale
+  $locale   = $postgresql::params::locale,
+  $istemplate = false
 ) {
   include postgresql::params
+
+  # Set the defaults for the postgresql_psql resource
+  Postgresql_psql {
+    psql_user    => $postgresql::params::user,
+    psql_group   => $postgresql::params::group,
+    psql_path    => $postgresql::params::psql_path,
+  }
 
   # Optionally set the locale switch. Older versions of createdb may not accept
   # --locale, so if the parameter is undefined its safer not to pass it.
@@ -40,7 +49,7 @@ define postgresql::database(
     $public_revoke_privilege = 'ALL'
   }
 
-  $createdb_command_tmp = "${postgresql::params::createdb_path} --template=template0 --encoding '${charset}' ${locale_option} '${dbname}'"
+  $createdb_command_tmp = "${postgresql::params::createdb_path} --owner='${owner}' --template=template0 --encoding '${charset}' ${locale_option} '${dbname}'"
 
   if($tablespace == undef) {
     $createdb_command = $createdb_command_tmp
@@ -52,23 +61,25 @@ define postgresql::database(
   postgresql_psql { "Check for existence of db '${dbname}'":
     command => 'SELECT 1',
     unless  => "SELECT datname FROM pg_database WHERE datname='${dbname}'",
-    cwd     => $postgresql::params::datadir,
     require => Class['postgresql::server']
   } ~>
 
   exec { $createdb_command :
     refreshonly => true,
-    user        => 'postgres',
-    cwd         => $postgresql::params::datadir,
+    user        => $postgresql::params::user,
     logoutput   => on_failure,
   } ~>
 
   # This will prevent users from connecting to the database unless they've been
   #  granted privileges.
-  postgresql_psql {"REVOKE ${public_revoke_privilege} ON DATABASE ${dbname} FROM public":
-    db          => 'postgres',
+  postgresql_psql {"REVOKE ${public_revoke_privilege} ON DATABASE \"${dbname}\" FROM public":
+    db          => $postgresql::params::user,
     refreshonly => true,
-    cwd         => $postgresql::params::datadir,
   }
 
+  Exec [ $createdb_command ] ->
+
+  postgresql_psql {"UPDATE pg_database SET datistemplate = ${istemplate} WHERE datname = '${dbname}'":
+    unless => "SELECT datname FROM pg_database WHERE datname = '${dbname}' AND datistemplate = ${istemplate}",
+  }
 }
