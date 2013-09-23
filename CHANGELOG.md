@@ -3,7 +3,7 @@ Baseline 1.0.1
 * Java environment comes with ant and maven now
 * Introduce Gradle as a environment option
 * Introduce Groovy as a environment option
-
+* Add ctags for all environments
 
 Baseline 1.0.0
 

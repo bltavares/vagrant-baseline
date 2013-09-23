@@ -13,6 +13,7 @@ class baseline {
     'vim',
     'zsh',
     'tmux',
+    'exuberant-ctags',
   ]
 
   package {
