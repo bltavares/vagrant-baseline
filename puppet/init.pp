@@ -7,6 +7,16 @@ node default {
     include baseline::lang::java
   }
 
+  if $hostname =~ /\bscala\b/ {
+    include baseline::lang::java
+    include baseline::lang::scala
+  }
+
+  if $hostname =~ /\bclojure\b/ {
+    include baseline::lang::java
+    include baseline::lein
+  }
+
   if $hostname =~ /\bruby\b/  {
     baseline::lang::ruby { '2.0.0-p247': }
   }
@@ -23,26 +33,12 @@ node default {
     include baseline::lang::lua
   }
 
-  if $hostname =~ /\bclojure\b/ {
-    include baseline::lang::java
-    include baseline::lein
-  }
-
   if $hostname =~ /\bpython\b/ {
     include baseline::lang::python
   }
 
-  if $hostname =~ /\berlang\b/ {
-    include baseline::lang::erlang
-  }
-
   if $hostname =~ /\bhaskell\b/ {
     include baseline::lang::haskell
-  }
-
-  if $hostname =~ /\bscala\b/ {
-    include baseline::lang::java
-    include baseline::lang::scala
   }
 
   if $hostname =~ /\bio\b/ {
@@ -55,11 +51,6 @@ node default {
 
   if $hostname =~ /\bgo\b/ {
     include baseline::lang::go
-  }
-
-  if $hostname =~ /\belixir\b/ {
-    include baseline::lang::erlang
-    include baseline::lang::elixir
   }
 
   if $hostname =~ /\brust\b/ {
@@ -82,16 +73,24 @@ node default {
     include baseline::postgres
   }
 
+  if $hostname =~ /\berlang\b/ {
+    include baseline::lang::erlang
+  }
+
+  if $hostname =~ /\belixir\b/ {
+    include baseline::lang::erlang
+    include baseline::lang::elixir
+  }
+
   if $hostname =~ /\bcouchdb\b/ {
     class { 'baseline::lang::erlang': version => '1:15.b.3-2~ubuntu~precise' } -> class { 'baseline::couchdb': }
   }
 
-  if $hostname =~ /\bzeromq\b/ {
-    include baseline::zeromq
-  }
-
   if $hostname =~ /\brabbitmq\b/ {
     class { 'baseline::lang::erlang': } -> class { '::rabbitmq': erlang_manage => false }
+  }
+  if $hostname =~ /\bzeromq\b/ {
+    include baseline::zeromq
   }
 
   if $hostname =~ /\bdots\b/ {
