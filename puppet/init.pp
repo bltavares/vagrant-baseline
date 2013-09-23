@@ -4,7 +4,7 @@ node default {
   include baseline
 
   if $hostname =~ /\bjava\b/ {
-    include java7
+    include baseline::lang::java
   }
 
   if $hostname =~ /\bruby\b/  {
@@ -24,7 +24,7 @@ node default {
   }
 
   if $hostname =~ /\bclojure\b/ {
-    include java7
+    include baseline::lang::java
     include baseline::lein
   }
 
@@ -41,7 +41,7 @@ node default {
   }
 
   if $hostname =~ /\bscala\b/ {
-    include java7
+    include baseline::lang::java
     include baseline::lang::scala
   }
 
