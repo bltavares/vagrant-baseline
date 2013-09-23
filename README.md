@@ -52,6 +52,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | elixir     | 0.10.1                              | includes latest erlang                    |
 | erlang     | latest from erlang-solutions.com    |                                           |
 | go         | 1.0.3                               |                                           |
+| groovy     | 2.1.7                               |                                           |
 | haskell    | haskell-platform from ubuntu's repo |                                           |
 | io         | Latest io deb from io website       |                                           |
 | java       | 7 + maven 3.1.0 + ant 1.9.2         |                                           |

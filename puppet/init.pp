@@ -7,6 +7,11 @@ node default {
     include baseline::lang::java
   }
 
+  if $hostname =~ /\bgroovy\b/ {
+    include baseline::lang::java
+    include baseline::lang::groovy
+  }
+
   if $hostname =~ /\bscala\b/ {
     include baseline::lang::java
     include baseline::lang::scala
