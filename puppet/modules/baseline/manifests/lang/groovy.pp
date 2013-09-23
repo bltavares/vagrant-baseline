@@ -2,18 +2,17 @@ class baseline::lang::groovy {
 
   $baseline_user = hiera('baseline_user', 'vagrant')
   $groovy_basename = 'groovy-2.1.7'
-  $groovy_tarball = 'groovy-binary-2.1.7.zip'
 
   include baseline::unzip
 
   exec {
     'download groovy':
-      command => "/usr/bin/wget http://dist.groovy.codehaus.org/distributions/${groovy_tarball}",
+      command => "/usr/bin/wget http://dist.groovy.codehaus.org/distributions/groovy-binary-2.1.7.zip -O $groovy_basename.zip",
       cwd     => '/opt',
-      creates => "/opt/${groovy_tarball}",
+      creates => "/opt/${groovy_basename}.zip",
       ;
     'extract groovy':
-      command => "/usr/bin/unzip ${groovy_tarball}",
+      command => "/usr/bin/unzip ${groovy_basename}",
       cwd     => '/opt',
       creates => "/opt/${groovy_basename}",
       require => [Exec['download groovy'], Package['unzip']],
