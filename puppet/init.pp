@@ -83,6 +83,10 @@ node default {
     include baseline::postgres
   }
 
+  if $hostname =~ /\bsml\b/ {
+    include baseline::lang::sml
+  }
+
   if $hostname =~ /\berlang\b/ {
     include baseline::lang::erlang
   }

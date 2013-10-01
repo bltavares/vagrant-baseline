@@ -1,3 +1,7 @@
+Baseline 1.0.2
+
+* Introduce SML/NJ as a enviroment
+
 Baseline 1.0.1
 
 * Java environment comes with ant and maven now
