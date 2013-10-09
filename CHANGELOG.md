@@ -1,3 +1,7 @@
+Baseline 1.0.2.1
+
+* Update the box url to point to the official puppet box in case you dont have the file. It shouldn't affect anyone that is already using a box.
+
 Baseline 1.0.2
 
 * Introduce SML/NJ as a enviroment
