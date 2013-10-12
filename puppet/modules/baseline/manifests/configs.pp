@@ -10,7 +10,7 @@ class baseline::configs {
       source => 'puppet:///modules/baseline/gitconfig',
       ;
     'baseline.sh':
-      path => '/etc/profile.d/baseline.sh',
+      path   => '/etc/profile.d/baseline.sh',
       source => 'puppet:///modules/baseline/baseline.sh',
       ;
   }
@@ -21,13 +21,16 @@ class baseline::configs {
         command => "chsh -s /bin/zsh ${baseline_user}",
         require => Package['zsh'],
         ;
-      'source vagrant_ruby in zshenv':
-        command => "/bin/echo '[[ -f /etc/profile.d/vagrant_ruby.sh ]] && source /etc/profile.d/vagrant_ruby.sh' >> /home/${baseline_user}/.zshenv",
-        unless  => "/bin/grep vagrant_ruby.sh /home/${baseline_user}/.zshenv 2> /dev/null",
-        ;
-      'source baseline.sh in zshenv':
-        command => "/bin/echo '[[ -f /etc/profile.d/baseline.sh ]] && source /etc/profile.d/baseline.sh' >> /home/${baseline_user}/.zshenv",
-        unless  => "/bin/grep baseline.sh /home/${baseline_user}/.zshenv 2> /dev/null",
     }
+  }
+
+  exec {
+    'source vagrant_ruby in zshenv':
+      command => "/bin/echo '[[ -f /etc/profile.d/vagrant_ruby.sh ]] && source /etc/profile.d/vagrant_ruby.sh' >> /home/${baseline_user}/.zshenv",
+      unless  => "/bin/grep vagrant_ruby.sh /home/${baseline_user}/.zshenv 2> /dev/null",
+      ;
+    'source baseline.sh in zshenv':
+      command => "/bin/echo '[[ -f /etc/profile.d/baseline.sh ]] && source /etc/profile.d/baseline.sh' >> /home/${baseline_user}/.zshenv",
+      unless  => "/bin/grep baseline.sh /home/${baseline_user}/.zshenv 2> /dev/null",
   }
 }

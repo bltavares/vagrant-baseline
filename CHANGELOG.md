@@ -1,3 +1,7 @@
+Baseline 1.0.3
+
+* Fix baseline configurations for zsh. Now zsh should have the provision command if the user later decide to change using the chsh command in the box
+
 Baseline 1.0.2.1
 
 * Update the box url to point to the official puppet box in case you dont have the file. It shouldn't affect anyone that is already using a box.
