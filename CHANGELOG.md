@@ -1,3 +1,7 @@
+Baseline 1.0.4
+
+* Add racket to the environment options
+
 Baseline 1.0.3
 
 * Fix baseline configurations for zsh. Now zsh should have the provision command if the user later decide to change using the chsh command in the box

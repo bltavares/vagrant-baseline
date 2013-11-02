@@ -64,6 +64,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | prolog     | swipl 6.2.6                         |                                           |
 | python     | 2.7 + pip and virtualenv            |                                           |
 | rabbitmq   | latest from official apt repo       | *port:* 5672                              |
+| racket     | 5.3.6 (August 2013)                 |                                           |
 | redis      | 2.6.10                              | *port:* 6379                              |
 | ruby       | rbenv + ruby 2.0                    |                                           |
 | ruby193    | rbenv + ruby 1.9.3                  |                                           |

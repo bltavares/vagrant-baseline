@@ -87,6 +87,10 @@ node default {
     include baseline::lang::sml
   }
 
+  if $hostname =~ /\bracket\b/ {
+    include baseline::lang::racket
+  }
+
   if $hostname =~ /\berlang\b/ {
     include baseline::lang::erlang
   }
