@@ -1,3 +1,7 @@
+Baseline 1.0.5
+
+* Add cabal binstub folder to the PATH
+
 Baseline 1.0.4
 
 * Add racket to the environment options
