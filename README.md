@@ -56,7 +56,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | groovy     | 2.1.7                               |                                           |
 | haskell    | haskell-platform from ubuntu's repo |                                           |
 | io         | Latest io deb from io website       |                                           |
-| java       | 7 + maven 3.1.0 + ant 1.9.2         |                                           |
+| java       | 7 + maven 3.1.1 + ant 1.9.2         |                                           |
 | lua        | 5.2 + luarocks                      |                                           |
 | mongo      | latest from 10\_gen repo            | *port:* 27017                             |
 | nodejs     | latest from ppa:chris.lea           |                                           |
