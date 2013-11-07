@@ -3,8 +3,8 @@ class baseline::lang::java {
 
   $baseline_user = hiera('baseline_user', 'vagrant')
 
-  $maven_basename = 'apache-maven-3.1.0'
-  $maven_url = "http://www.us.apache.org/dist/maven/maven-3/3.1.0/binaries/${maven_basename}-bin.tar.gz"
+  $maven_basename = 'apache-maven-3.1.1'
+  $maven_url = "http://www.us.apache.org/dist/maven/maven-3/3.1.1/binaries/${maven_basename}-bin.tar.gz"
 
   $ant_basename = 'apache-ant-1.9.2'
   $ant_url = "http://www.us.apache.org/dist//ant/binaries/${ant_basename}-bin.tar.gz"

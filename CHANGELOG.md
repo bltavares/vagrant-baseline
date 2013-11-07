@@ -1,3 +1,7 @@
+Baseline 1.0.6
+
+* Fix maven download url
+
 Baseline 1.0.5
 
 * Add cabal binstub folder to the PATH
