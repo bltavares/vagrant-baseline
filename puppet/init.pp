@@ -28,11 +28,11 @@ node default {
   }
 
   if $hostname =~ /\bruby\b/  {
-    baseline::lang::ruby { '2.0.0-p247': }
+    baseline::lang::ruby { '2.0.0-p353': }
   }
 
   if $hostname =~ /\bruby193\b/  {
-    baseline::lang::ruby { '1.9.3-p448': }
+    baseline::lang::ruby { '1.9.3-p484': }
   }
 
   if $hostname =~ /\bnodejs\b/ {

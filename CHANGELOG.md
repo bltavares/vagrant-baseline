@@ -1,3 +1,8 @@
+Baseline 1.0.7
+
+* Bump ruby to 2.0.0-p353
+* Bump ruby193 to 1.9.3-p484
+
 Baseline 1.0.6
 
 * Fix maven download url
