@@ -1,10 +1,10 @@
-class baseline::lang::go { 
+class baseline::lang::go {
 
   $baseline_user = hiera('baseline_user', 'vagrant')
 
   exec {
     'download go':
-      command => '/usr/bin/curl https://go.googlecode.com/files/go1.0.3.linux-amd64.tar.gz | /bin/tar xz',
+      command => '/usr/bin/curl https://go.googlecode.com/files/go1.2.linux-amd64.tar.gz | /bin/tar xz',
       cwd     => '/opt',
       creates => '/opt/go',
       require => Package['curl'],

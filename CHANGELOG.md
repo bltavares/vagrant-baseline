@@ -1,6 +1,7 @@
 Baseline 1.0.8
 
 * Bump elixir to 0.11.2
+* Bump go to 1.2.0
 
 Baseline 1.0.7
 
