@@ -1,13 +1,13 @@
 class baseline::lang::elixir {
 
   $baseline_user = hiera('baseline_user', 'vagrant')
-  $elixir_tarball = 'v0.10.1.zip'
+  $elixir_tarball = 'v0.11.2.zip'
 
   include baseline::unzip
 
   exec {
     'download elixir':
-      command => "/usr/bin/wget https://github.com/elixir-lang/elixir/releases/download/v0.10.1/${elixir_tarball}",
+      command => "/usr/bin/wget https://github.com/elixir-lang/elixir/releases/download/v0.11.2/${elixir_tarball}",
       cwd     => '/opt',
       creates => "/opt/${elixir_tarball}",
       ;

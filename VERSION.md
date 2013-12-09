@@ -1,1 +1,1 @@
-vagrant-baseline 1.0.7
+vagrant-baseline 1.0.8
