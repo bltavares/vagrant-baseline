@@ -1,13 +1,13 @@
 class baseline::lang::groovy {
 
   $baseline_user = hiera('baseline_user', 'vagrant')
-  $groovy_basename = 'groovy-2.1.7'
+  $groovy_basename = 'groovy-2.2.1'
 
   include baseline::unzip
 
   exec {
     'download groovy':
-      command => "/usr/bin/wget http://dist.groovy.codehaus.org/distributions/groovy-binary-2.1.7.zip -O $groovy_basename.zip",
+      command => "/usr/bin/wget http://dist.groovy.codehaus.org/distributions/groovy-binary-2.2.1.zip -O $groovy_basename.zip",
       cwd     => '/opt',
       creates => "/opt/${groovy_basename}.zip",
       ;

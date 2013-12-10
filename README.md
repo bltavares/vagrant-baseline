@@ -53,7 +53,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | erlang     | latest from erlang-solutions.com    |                                           |
 | go         | 1.2.0                               |                                           |
 | gradle     | 1.7                                 |                                           |
-| groovy     | 2.1.7                               |                                           |
+| groovy     | 2.2.1                               |                                           |
 | haskell    | haskell-platform from ubuntu's repo |                                           |
 | io         | Latest io deb from io website       |                                           |
 | java       | 7 + maven 3.1.1 + ant 1.9.2         |                                           |
