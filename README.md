@@ -68,7 +68,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | redis      | 2.6.10                              | *port:* 6379                              |
 | ruby       | rbenv + ruby 2.0                    |                                           |
 | ruby193    | rbenv + ruby 1.9.3                  |                                           |
-| rust       | 0.5.1                               |                                           |
+| rust       | 0.8                                 |                                           |
 | scala      | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
 | sml        | smlnj 110.76                        |                                           |
 | zeromq     | 3.2.3                               |                                           |
