@@ -68,9 +68,7 @@ node default {
   }
 
   if $hostname =~ /\bredis\b/ {
-    class { 'redis':
-      version => '2.6.10',
-    }
+    include baseline::redis
   }
 
   if $hostname =~ /\bmongo\b/ {
