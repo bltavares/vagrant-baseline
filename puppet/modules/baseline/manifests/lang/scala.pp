@@ -1,6 +1,6 @@
 class baseline::lang::scala {
 
-  $scala_basename = 'scala-2.10.2'
+  $scala_basename = 'scala-2.10.3'
   $scala_path = "/opt/${scala_basename}/bin"
 
   $baseline_user = hiera('baseline_user')
@@ -17,7 +17,7 @@ class baseline::lang::scala {
       unless  => "/bin/grep scala.sh /home/${baseline_user}/.zshenv 2> /dev/null",
       ;
     'download sbt deb':
-      command => '/usr/bin/wget http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.2/sbt.deb',
+      command => '/usr/bin/wget http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.13.0/sbt.deb',
       cwd     => '/opt',
       creates => '/opt/sbt.deb',
       require => [Package['curl'], Class[java7]],

@@ -69,7 +69,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | ruby       | rbenv + ruby 2.0                    |                                           |
 | ruby193    | rbenv + ruby 1.9.3                  |                                           |
 | rust       | 0.8                                 |                                           |
-| scala      | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
+| scala      | 2.10.3 + sbt 0.13.0                 | includes java 7                           |
 | sml        | smlnj 110.76                        |                                           |
 | zeromq     | 4.0.3                               |                                           |
 
