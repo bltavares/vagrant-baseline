@@ -1,7 +1,7 @@
 class baseline::gradle {
 
   $baseline_user = hiera('baseline_user', 'vagrant')
-  $gradle_basename = 'gradle-1.7'
+  $gradle_basename = 'gradle-1.9'
 
   include baseline::unzip
 
