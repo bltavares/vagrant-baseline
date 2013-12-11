@@ -8,6 +8,7 @@ Baseline 1.0.8
 * Bump `zeromq` to 4.0.3
 * Bump `scala` to 2.10.3
 * Bump `sbt` to 0.13.0
+* Update the `provision` command to update the $PATH information after finishing
 * Make Puppet provisioning compatible with Vagrant 1.4.0
 
 Baseline 1.0.7
