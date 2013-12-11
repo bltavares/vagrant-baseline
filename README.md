@@ -71,7 +71,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | rust       | 0.8                                 |                                           |
 | scala      | 2.10.0 + sbt 0.12.2                 | includes java 7                           |
 | sml        | smlnj 110.76                        |                                           |
-| zeromq     | 3.2.3                               |                                           |
+| zeromq     | 4.0.3                               |                                           |
 
 
 ### Extending an already booted box

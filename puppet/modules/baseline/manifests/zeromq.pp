@@ -13,7 +13,7 @@ class baseline::zeromq {
     ensure  => latest,
   } -> Exec['download zeromq']
 
-  $zeromq_basename = 'zeromq-3.2.3'
+  $zeromq_basename = 'zeromq-4.0.3'
 
   exec {
     'download zeromq':
@@ -42,6 +42,5 @@ class baseline::zeromq {
       require => Exec['install zeromq'],
       ;
   }
-
 
 }
