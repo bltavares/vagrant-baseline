@@ -1,5 +1,6 @@
 class baseline::docker {
 
+  $baseline_user = hiera('baseline_user', 'vagrant')
   $docker_kernel = [
     'linux-image-generic-lts-raring',
     'linux-headers-generic-lts-raring',
@@ -22,6 +23,12 @@ class baseline::docker {
       ensure => 'latest',
       require => [Apt::Source['docker.io'], Package[$docker_kernel]],
       ;
+  }
+
+  user { $baseline_user:
+    ensure  => 'present',
+    groups  => 'docker',
+    require => Package['lxc-docker'],
   }
 
 }
