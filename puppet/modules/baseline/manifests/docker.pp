@@ -2,8 +2,8 @@ class baseline::docker {
 
   $baseline_user = hiera('baseline_user', 'vagrant')
   $docker_kernel = [
-    'linux-image-generic-lts-raring',
     'linux-headers-generic-lts-raring',
+    'linux-image-generic-lts-raring',
     'dkms',
   ]
 

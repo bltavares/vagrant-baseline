@@ -1,5 +1,6 @@
 class baseline {
 
+  include apt
   include git
   include baseline::configs
   Exec['update apt'] -> Package <| |>
