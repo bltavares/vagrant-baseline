@@ -48,6 +48,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | ---        | ---                                 | ---                                       |
 | clojure    | lein latest stable version          | includes java 7                           |
 | couchdb    | 1.3.1 + erlang R15B                 | *port:* 5984 *listen on:* 127.0.0.1       |
+| docker     | latest from docker.io               |                                           |
 | dots       | setup dot files                     |                                           |
 | elixir     | 0.11.2                              | includes latest erlang                    |
 | erlang     | latest from erlang-solutions.com    |                                           |

@@ -109,6 +109,10 @@ node default {
     include baseline::zeromq
   }
 
+  if $hostname =~ /\bdocker\b/ {
+    include baseline::docker
+  }
+
   if $hostname =~ /\bdots\b/ {
     include baseline::dotfiles
   }

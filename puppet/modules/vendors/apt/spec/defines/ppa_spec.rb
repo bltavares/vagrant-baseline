@@ -20,6 +20,9 @@ describe 'apt::ppa', :type => :define do
       let :package do
         "#{platform[:package]}"
       end
+      let :options do
+        "-y"
+      end
       ['ppa:dans_ppa', 'dans_ppa','ppa:dans-daily/ubuntu'].each do |t|
         describe "with title #{t}" do
           let :pre_condition do
@@ -41,8 +44,8 @@ describe 'apt::ppa', :type => :define do
           }
 
           it { should contain_exec("add-apt-repository-#{t}").with(
-            'command' => "/usr/bin/add-apt-repository #{t}",
-            'creates' => "/etc/apt/sources.list.d/#{filename}",
+            'command' => "/usr/bin/add-apt-repository #{options} #{t}",
+            'unless'  => "/usr/bin/test -s /etc/apt/sources.list.d/#{filename}",
             'require' => ["File[/etc/apt/sources.list.d]", "Package[#{package}]"],
             'notify'  => "Exec[apt_update]"
             )
@@ -54,6 +57,54 @@ describe 'apt::ppa', :type => :define do
             )
           }
         end
+      end
+      describe 'without a proxy defined' do
+        let :title do
+          'rspec_ppa'
+        end
+        let :pre_condition do
+          'class { "apt":
+             proxy_host => false
+          }'
+        end
+        let :filename do
+          "#{title}-#{release}.list"
+        end
+
+        it { should contain_exec("add-apt-repository-#{title}").with(
+          'environment' => [],
+          'command'     => "/usr/bin/add-apt-repository #{options} #{title}",
+          'unless'      => "/usr/bin/test -s /etc/apt/sources.list.d/#{filename}",
+          'require'     => ["File[/etc/apt/sources.list.d]", "Package[#{package}]"],
+          'notify'      => "Exec[apt_update]"
+          )
+        }
+      end
+
+      describe 'behind a proxy' do
+        let :title do
+          'rspec_ppa'
+        end
+        let :pre_condition do
+          'class { "apt":
+            proxy_host => "user:pass@proxy",
+          }'
+        end
+          let :filename do
+            "#{title}-#{release}.list"
+          end
+
+        it { should contain_exec("add-apt-repository-#{title}").with(
+          'environment' => [
+            "http_proxy=http://user:pass@proxy:8080",
+            "https_proxy=http://user:pass@proxy:8080",
+          ],
+          'command'     => "/usr/bin/add-apt-repository #{options} #{title}",
+          'unless'      => "/usr/bin/test -s /etc/apt/sources.list.d/#{filename}",
+          'require'     => ["File[/etc/apt/sources.list.d]", "Package[#{package}]"],
+          'notify'      => "Exec[apt_update]"
+          )
+        }
       end
     end
   end

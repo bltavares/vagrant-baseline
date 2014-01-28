@@ -1,3 +1,10 @@
+Baseline 1.1.0
+
+* Add `docker` environment
+* Updated `apt` and `stdlib` puppet modules
+* Change base image (first run will require a big download)
+* Update Puppet version on base image
+
 Baseline 1.0.8
 
 * Bump `elixir` to 0.11.2
