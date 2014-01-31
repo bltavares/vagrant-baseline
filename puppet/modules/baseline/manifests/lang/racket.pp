@@ -10,7 +10,7 @@ class baseline::lang::racket {
 
   exec {
     'Download racket':
-      command => '/usr/bin/curl http://download.racket-lang.org/installers/5.3.6/racket/racket-5.3.6-bin-x86_64-linux-ubuntu-precise.sh -o /opt/racket-install.sh',
+      command => '/usr/bin/curl http://download.racket-lang.org/installers/5.92/racket-5.92-x86_64-linux-ubuntu-quantal.sh -o /opt/racket-install.sh',
       cwd     => '/opt',
       creates => '/opt/racket-install.sh',
       require => Package['curl'],

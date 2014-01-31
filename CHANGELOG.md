@@ -6,6 +6,7 @@ Baseline 1.1.0
 * Update Puppet version on base image
 * Update IO instructions to not break as easilly anymore
 * Update Mongo instructions
+* Update Racket instructions
 
 Baseline 1.0.8
 
