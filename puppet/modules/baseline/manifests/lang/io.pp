@@ -1,7 +1,7 @@
 class baseline::lang::io {
 
   $io_tarball = 'iobin-linux-x64-deb-current.zip'
-  $io_deb_package = 'IoLanguage-2012.11.10-Linux-x64.deb'
+  $io_deb_package = 'IoLanguage-*-Linux-x64.deb'
 
   include baseline::unzip
 
@@ -14,7 +14,7 @@ class baseline::lang::io {
     'extract io':
       command => "/usr/bin/unzip ${io_tarball} -d io_lang_current",
       cwd     => '/opt',
-      creates => "/opt/io_lang_current/${io_deb_package}",
+      creates => '/opt/io_lang_current',
       require => [Package['unzip'], Exec['download io']],
       ;
     'install io':
