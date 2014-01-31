@@ -23,8 +23,8 @@ describe 'rabbitmq' do
       should contain_class('rabbitmq::repo::rhel')
     end
   end
-
-  ['Debian', 'RedHat', 'SUSE'].each do |distro|
+  
+  ['Debian', 'RedHat', 'SUSE', 'Archlinux'].each do |distro|
     context "on #{distro}" do
       let(:facts) {{
         :osfamily => distro,
@@ -156,7 +156,27 @@ describe 'rabbitmq' do
       end
 
       describe 'rabbitmq-env configuration' do
-        it { should contain_file('rabbitmq-env.config') }
+        let(:params) {{ :environment_variables => {
+          'RABBITMQ_NODE_IP_ADDRESS'    => '1.1.1.1',
+          'RABBITMQ_NODE_PORT'          => '5656',
+          'RABBITMQ_NODENAME'           => 'HOSTNAME',
+          'RABBITMQ_SERVICENAME'        => 'RabbitMQ',
+          'RABBITMQ_CONSOLE_LOG'        => 'RabbitMQ.debug',
+          'RABBITMQ_CTL_ERL_ARGS'       => 'verbose',
+          'RABBITMQ_SERVER_ERL_ARGS'    => 'v',
+          'RABBITMQ_SERVER_START_ARGS'  => 'debug'
+        }}}
+        it 'should set environment variables' do
+          should contain_file('rabbitmq-env.config') \
+            .with_content(/RABBITMQ_NODE_IP_ADDRESS=1.1.1.1/) \
+            .with_content(/RABBITMQ_NODE_PORT=5656/) \
+            .with_content(/RABBITMQ_NODENAME=HOSTNAME/) \
+            .with_content(/RABBITMQ_SERVICENAME=RabbitMQ/) \
+            .with_content(/RABBITMQ_CONSOLE_LOG=RabbitMQ.debug/) \
+            .with_content(/RABBITMQ_CTL_ERL_ARGS=verbose/) \
+            .with_content(/RABBITMQ_SERVER_ERL_ARGS=v/) \
+            .with_content(/RABBITMQ_SERVER_START_ARGS=debug/)
+        end
       end
 
       context 'delete_guest_user' do
@@ -208,6 +228,7 @@ describe 'rabbitmq' do
           end
         end
       end
+
       describe 'default_user and default_pass set' do
         let(:params) {{ :default_user => 'foo', :default_pass => 'bar' }}
         it 'should set default_user and default_pass to specified values' do
@@ -233,6 +254,24 @@ describe 'rabbitmq' do
             certfile="\/path\/to\/cert".*
             keyfile,"\/path\/to\/key/,
           })
+        end
+      end
+
+      describe 'config_variables options' do
+        let(:params) {{ :config_variables => {
+            'hipe_compile'                  => true,
+            'vm_memory_high_watermark'      => 0.4,
+            'frame_max'                     => 131072,
+            'collect_statistics'            => "none",
+            'auth_mechanisms'               => "['PLAIN', 'AMQPLAIN']",
+        }}}
+        it 'should set environment variables' do
+          should contain_file('rabbitmq.config') \
+            .with_content(/\{hipe_compile, true\}/) \
+            .with_content(/\{vm_memory_high_watermark, 0.4\}/) \
+            .with_content(/\{frame_max, 131072\}/) \
+            .with_content(/\{collect_statistics, none\}/) \
+            .with_content(/\{auth_mechanisms, \['PLAIN', 'AMQPLAIN'\]\}/)
         end
       end
 
@@ -323,6 +362,15 @@ describe 'rabbitmq' do
         'name'     => 'rabbitmq-server',
         'provider' => 'apt'
       )
+    end
+  end
+  
+  context "on Archlinux" do
+    let(:facts) {{ :osfamily => 'Archlinux' }}
+    it 'installs the rabbitmq package' do
+      should contain_package('rabbitmq-server').with(
+        'ensure'   => 'installed',
+        'name'     => 'rabbitmq')
     end
   end
 

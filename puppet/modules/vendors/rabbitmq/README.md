@@ -58,13 +58,40 @@ class { '::rabbitmq':
 }
 ```
 
+### Environment Variables
+To use RabbitMQ Environment Variables, use the parameters `environment_variables` e.g.:
+
+```puppet
+class { 'rabbitmq':
+  port              => '5672',
+  environment_variables   => {
+    'RABBITMQ_NODENAME'     => 'node01',
+    'RABBITMQ_SERVICENAME'  => 'RabbitMQ'
+  }
+}
+```
+
+### Variables Configurable in rabbitmq.config
+To change RabbitMQ Config Variables in rabbitmq.config, use the parameters `config_variables` e.g.:
+
+```puppet
+class { 'rabbitmq':
+  port              => '5672',
+  config_variables   => {
+    'hipe_compile'  => true,
+    'frame_max'     => 131072,
+    'log_levels'    => "[{connection, info}]"
+  }
+}
+```
+
 ### Clustering
 To use RabbitMQ clustering and H/A facilities, use the rabbitmq::server
 parameters `config_cluster`, `cluster_nodes`, and `cluster_node_type`, e.g.:
 
 ```puppet
 class { 'rabbitmq':
-  config_cluster    => true 
+  config_cluster    => true, 
   cluster_nodes     => ['rabbit1', 'rabbit2'],
   cluster_node_type => 'ram',
 }
@@ -154,9 +181,17 @@ The erlang cookie to use for clustering - must be the same between all nodes.
 
 If true then we include an erlang module.
 
+####`config_variables`
+
+To set config variables in rabbitmq.config
+
 ####`node_ip_address`
 
 The value of RABBITMQ_NODE_IP_ADDRESS in rabbitmq_env.config
+
+####`environment_variables`
+
+RabbitMQ Environment Variables in rabbitmq_env.config
 
 ####`package_ensure`
 

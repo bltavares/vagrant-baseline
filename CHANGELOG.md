@@ -9,6 +9,7 @@ Baseline 1.1.0
 * Update Racket instructions
 * Update postgresql instructions
 * Update Prolog instructions to use the new official PPA
+* Update Rabbitmq module
 
 Baseline 1.0.8
 

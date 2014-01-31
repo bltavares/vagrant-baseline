@@ -5,18 +5,29 @@
 class rabbitmq::params {
 
   case $::osfamily {
+    'Archlinux': {
+      $package_ensure   = 'installed'
+      $package_name     = 'rabbitmq'
+      $service_name     = 'rabbitmq'
+      $package_source   = ''
+      $version          = '3.1.3-1'
+      $base_version     = regsubst($version,'^(.*)-\d$','\1')
+      # This must remain at the end as we need $base_version and $version defined first
+    }
     'Debian': {
       $package_ensure   = 'installed'
       $package_name     = 'rabbitmq-server'
+      $service_name     = 'rabbitmq-server'
       $package_provider = 'apt'
       $package_source   = ''
-      $version          = '3.1.3'
+      $version          = '3.1.5'
     }
     'RedHat', 'SUSE': {
       $package_ensure   = 'installed'
       $package_name     = 'rabbitmq-server'
+      $service_name     = 'rabbitmq-server'
       $package_provider = 'rpm'
-      $version          = '3.1.3-1'
+      $version          = '3.1.5-1'
       $base_version     = regsubst($version,'^(.*)-\d$','\1')
       # This must remain at the end as we need $base_version and $version defined first.
       $package_source   = "http://www.rabbitmq.com/releases/rabbitmq-server/v${base_version}/rabbitmq-server-${version}.noarch.rpm"
@@ -34,7 +45,6 @@ class rabbitmq::params {
   $package_gpg_key            = 'http://www.rabbitmq.com/rabbitmq-signing-key-public.asc'
   $service_ensure             = 'running'
   $service_manage             = true
-  $service_name               = 'rabbitmq-server'
   #config 
   $cluster_disk_nodes         = []
   $cluster_node_type          = 'disc'
@@ -63,5 +73,6 @@ class rabbitmq::params {
   $stomp_port                 = '6163'
   $wipe_db_on_cookie_change   = false
   $cluster_partition_handling = 'ignore'
-
+  $environment_variables      = {}
+  $config_variables           = {}
 }

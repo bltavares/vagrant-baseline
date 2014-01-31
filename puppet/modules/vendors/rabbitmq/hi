@@ -1,0 +1,50 @@
+define bastion_users (
+  $id,
+  $authorized_key,
+  $ssh_config,
+  $private_key,
+  $public_key,
+  $home = "/home/${name}"
+) {
+
+  group { $name:
+    ensure   => present,
+    name     => $name,
+    gid      => $id,
+  }
+
+
+  user { $name:
+    ensure     => present,
+    password   => '!!',
+    uid        => $id,
+    gid        => $name,
+    comment    => '',
+    home       => $home,
+    provider   => 'useradd',
+    managehome => true,
+    shell      => '/bin/bash',
+  }
+
+  file { ["/home/${name}", "/home/${name}/.ssh"]:
+    ensure => directory,
+    group  => $name,
+    owner  => $name,
+    mode   => '0700',
+  }
+
+}
+
+module::bastion_users { 'rod':
+  id          => '51',
+  private_key => 'blah',
+}
+
+create_resources('module::bastion_users', $hash)
+
+fod_admin:
+  id: '1'
+  authorized_key: '1'
+user:
+  id: '1'
+  authorized_key: '1'
