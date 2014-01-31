@@ -34,7 +34,7 @@ class motd {
    concat{$motd:
       owner => root,
       group => root,
-      mode  => 644
+      mode  => '0644',
    }
 
    concat::fragment{"motd_header":
@@ -74,10 +74,14 @@ class apache {
 }
 </pre>
 
+Detailed documentation of the class options can be found in the
+manifest files.
+
 Known Issues:
 -------------
 * Since puppet-concat now relies on a fact for the concat directory,
-  you will need to set up pluginsync = true for at least the first run.
+  you will need to set up pluginsync = true on the [master] section of your
+  node's '/etc/puppet/puppet.conf' for at least the first run.
   You have this issue if puppet fails to run on the client and you have
   a message similar to
   "err: Failed to apply catalog: Parameter path failed: File
@@ -117,7 +121,7 @@ Contributors:
 
  * Support non GNU systems by default
 
-**Erik Dalén*
+**Erik Dalén**
 
  * Style improvements
 
@@ -147,4 +151,4 @@ Contributors:
 
 Contact:
 --------
-R.I.Pienaar / rip@devco.net / @ripienaar / http://devco.net
+puppet-users@ mailing list.

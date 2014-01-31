@@ -7,6 +7,7 @@ Baseline 1.1.0
 * Update IO instructions to not break as easilly anymore
 * Update Mongo instructions
 * Update Racket instructions
+* Update postgresql instructions
 
 Baseline 1.0.8
 

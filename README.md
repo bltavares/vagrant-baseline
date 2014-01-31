@@ -61,7 +61,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | lua        | 5.2 + luarocks                      |                                           |
 | mongo      | latest from 10\_gen repo            | *port:* 27017                             |
 | nodejs     | latest from ppa:chris.lea           |                                           |
-| postgresql | 9.2 + devel package                 | *username:* postgres *password:* postgres |
+| postgresql | 9.3 + devel package                 | *username:* postgres *password:* postgres |
 | prolog     | swipl 6.2.6                         |                                           |
 | python     | 2.7 + pip and virtualenv            |                                           |
 | rabbitmq   | latest from official apt repo       | *port:* 5672                              |

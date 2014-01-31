@@ -1,65 +1,62 @@
-# Define: postgresql::validate_db_connection
-#
 # This type validates that a successful postgres connection can be established
 # between the node on which this resource is run and a specified postgres
 # instance (host/port/user/password/database name).
 #
-# Parameters:
-#   [*database_host*]       - the hostname or IP address of the machine where the
-#                             postgres server should be running.
-#   [*database_port*]       - the port on which postgres server should be
-#                             listening (defaults to 5432).
-#   [*database_username*]   - the postgres username
-#   [*database_password*]   - the postgres user's password
-#   [*database_name*]       - the database name that the connection should be
-#                             established against
-#
-# NOTE: to some degree this type assumes that you've created the corresponding
-# postgres database instance that you are validating by using the
-# `postgresql::db` or `postgresql::database` type provided by this module
-# elsewhere in your manifests.
-#
-# Actions:
-#
-# Attempts to establish a connection to the specified postgres database.  If
-#  a connection cannot be established, the resource will fail; this allows you
-#  to use it as a dependency for other resources that would be negatively
-#  impacted if they were applied without the postgres connection being available.
-#
-# Requires:
-#
-#  `psql` commandline tool (will automatically install the system's postgres
-#                           client package if it is not already installed.)
-#
-# Sample Usage:
-#
-#  postgresql::validate_db_connection { 'validate my postgres connection':
-#      database_host           => 'my.postgres.host',
-#      database_username       => 'mydbuser',
-#      database_password       => 'mydbpassword',
-#      database_name           => 'mydbname',
-#  }
-#
-
+# See README.md for more details.
 define postgresql::validate_db_connection(
-  $database_host,
-  $database_name,
-  $database_password,
-  $database_username,
-  $database_port = 5432
+  $database_host     = undef,
+  $database_name     = undef,
+  $database_password = undef,
+  $database_username = undef,
+  $database_port     = undef,
+  $run_as            = undef,
+  $sleep             = 2,
+  $tries             = 10,
+  $create_db_first   = true
 ) {
   require postgresql::client
+  include postgresql::params
 
-  # TODO: port to ruby
-  $psql = "${postgresql::params::psql_path} --tuples-only --quiet -h ${database_host} -U ${database_username} -p ${database_port} --dbname ${database_name}"
+  $psql_path = $postgresql::params::psql_path
+
+  $cmd_init = "${psql_path} --tuples-only --quiet "
+  $cmd_host = $database_host ? {
+    default => "-h ${database_host} ",
+    undef   => "",
+  }
+  $cmd_user = $database_username ? {
+    default => "-U ${database_username} ",
+    undef   => "",
+  }
+  $cmd_port = $database_port ? {
+    default => "-p ${database_port} ",
+    undef   => "",
+  }
+  $cmd_dbname = $database_name ? {
+    default => "--dbname ${database_name} ",
+    undef   => "--dbname ${postgresql::params::default_database} ",
+  }
+  $env = $database_password ? {
+    default => "PGPASSWORD=${database_password}",
+    undef   => undef,
+  }
+  $cmd = join([$cmd_init, $cmd_host, $cmd_user, $cmd_port, $cmd_dbname])
+  $validate_cmd = "/usr/local/bin/validate_postgresql_connection.sh ${sleep} ${tries} '${cmd}'"
+
+  # This is more of a safety valve, we add a little extra to compensate for the
+  # time it takes to run each psql command.
+  $timeout = (($sleep + 2) * $tries)
 
   $exec_name = "validate postgres connection for ${database_host}/${database_name}"
   exec { $exec_name:
-    command     => '/bin/false',
-    unless      => "/bin/echo \"SELECT 1\" | ${psql}",
+    command     => "echo 'Unable to connect to defined database using: ${cmd}' && false",
+    unless      => $validate_cmd,
     cwd         => '/tmp',
-    environment => "PGPASSWORD=${database_password}",
+    environment => $env,
     logoutput   => 'on_failure',
+    user        => $run_as,
+    path        => '/bin',
+    timeout     => $timeout,
     require     => Package['postgresql-client'],
   }
 
@@ -72,5 +69,7 @@ define postgresql::validate_db_connection(
   # We accomplish this by using Puppet's resource collection syntax to search
   # for the Database resource in our current catalog; if it exists, the
   # appropriate relationship is created here.
-  Database<|title == $database_name|> -> Exec[$exec_name]
+  if($create_db_first) {
+    Postgresql::Server::Database<|title == $database_name|> -> Exec[$exec_name]
+  }
 }
