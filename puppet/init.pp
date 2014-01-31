@@ -72,9 +72,11 @@ node default {
   }
 
   if $hostname =~ /\bmongo\b/ {
-    class { 'mongodb':
-      enable_10gen => true,
-    }
+    class {'::mongodb::globals':
+        manage_package_repo => true,
+    }->
+    class {'::mongodb::server': }->
+    class {'::mongodb::client': }
   }
 
   if $hostname =~ /\bpostgresql\b/ {

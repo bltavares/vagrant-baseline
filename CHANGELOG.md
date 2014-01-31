@@ -5,6 +5,7 @@ Baseline 1.1.0
 * Change base image (first run will require a big download)
 * Update Puppet version on base image
 * Update IO instructions to not break as easilly anymore
+* Update Mongo instructions
 
 Baseline 1.0.8
 
