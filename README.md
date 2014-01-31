@@ -62,7 +62,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | mongo      | latest from 10\_gen repo            | *port:* 27017                             |
 | nodejs     | latest from ppa:chris.lea           |                                           |
 | postgresql | 9.3 + devel package                 | *username:* postgres *password:* postgres |
-| prolog     | swipl 6.2.6                         |                                           |
+| prolog     | latest from ppa:swi-prolog/stable   |                                           |
 | python     | 2.7 + pip and virtualenv            |                                           |
 | rabbitmq   | latest from official apt repo       | *port:* 5672                              |
 | racket     | 5.02 (January 2014)                 |                                           |

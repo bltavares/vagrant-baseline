@@ -8,6 +8,7 @@ Baseline 1.1.0
 * Update Mongo instructions
 * Update Racket instructions
 * Update postgresql instructions
+* Update Prolog instructions to use the new official PPA
 
 Baseline 1.0.8
 
