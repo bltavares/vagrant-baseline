@@ -22,11 +22,11 @@ Vagrant.configure("2") do |config|
   config.vm.define hostname.to_sym unless ENV.fetch("use_default_box", "true") == "true"
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu12.04-puppet3.3.1-linux3.8"
+  config.vm.box = "precise64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/ubuntu-12.04.3-amd64-vbox.box"
+  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -46,12 +46,12 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  
+
   config.vm.synced_folder "..", "/vagrant" if ENV['baseline_box']
 
   cache_dir = local_cache(config.vm.box)
   config.vm.synced_folder cache_dir,
-                         "/var/cache/apt/archives/"
+    "/var/cache/apt/archives/"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -87,20 +87,12 @@ Vagrant.configure("2") do |config|
   # # }
   #
 
-  puppet_args = [ '--confdir .' ]
-  puppet_args += ['--verbose', '--debug', '--graph'] if ENV['DEBUG']
-
-  options = {
-    options: puppet_args,
-    facter:  { fqdn: 'precise.vagrant' }
-  }
-
-  config.vm.provision :puppet, options do |puppet|
-    puppet.manifests_path = 'puppet'
-    puppet.manifest_file  = 'init.pp'
-    puppet.temp_dir = '/tmp/vagrant-puppet'
-    puppet.working_directory = '/tmp/vagrant-puppet/manifests'
-  end
+  #config.vm.provision :puppet, options do |puppet|
+  #puppet.manifests_path = 'puppet'
+  #puppet.manifest_file  = 'init.pp'
+  #puppet.temp_dir = '/tmp/vagrant-puppet'
+  #puppet.working_directory = '/tmp/vagrant-puppet/manifests'
+  #end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
@@ -139,4 +131,33 @@ Vagrant.configure("2") do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
+  #
+
+  config.vm.provision :shell do |shell|
+    shell.inline = <<SHELL
+    cd /opt
+    if [ ! -d kickstart ]; then
+      wget -O- https://github.com/bltavares/kickstart/archive/latest.tar.gz | tar xz
+      mv kickstart-latest kickstart
+      ln -s /opt/kickstart/bin/kickstart /usr/local/bin/kickstart
+    fi
+SHELL
+  end
+
+  config.vm.provision :shell do |shell|
+    shell.inline = <<SHELL
+    cd /opt
+    if [ ! -d kickstart-baseline ]; then
+      wget -O- https://github.com/bltavares/kickstart-baseline/archive/latest.tar.gz | tar xz
+      mv kickstart-baseline-latest kickstart-baseline
+    fi
+SHELL
+  end
+
+  config.vm.provision :shell do |shell|
+    shell.inline = <<SHELL
+    cd /opt/kickstart-baseline
+    DEBUG="#{ENV['DEBUG']}" kickstart local #{ENV['baseline_kickstart']}
+SHELL
+  end
 end
