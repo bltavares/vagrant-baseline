@@ -16,18 +16,13 @@ Now you can mess up all the files in your dev box, and discard when you think it
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Current environments](#current-environments)
-  - [Extending an already booted box](#extending-an-already-booted-box)
-  - [Using your own dotfiles](#using-your-own-dotfiles)
-  - [Setting ZSH as the default shell](#setting-zsh-as-the-default-shell)
   - [Working with multiple VMs](#working-with-multiple-vms)
-  - [Extending with your own puppet scripts](#extending-with-your-own-puppet-scripts)
   - [Debugging](#debugging)
 
 ### Requirements
 
 * vagrant (which means ruby and VirtualBox)
 * Internet connection
-* An updated base box with the puppet 3.1.0
 
 If you don't know what a base box is, relax. Vagrant will download one for you on the first time you run the commands. It is around 350Mb.
 If you don't know how to update a base box, take a look on the _Vagrantfile_. There is a link were you can find a updated box.
@@ -46,18 +41,16 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 
 | Name       | Provides                            | Extra information                         |
 | ---        | ---                                 | ---                                       |
-| clojure    | lein latest stable version          | includes java 7                           |
-| couchdb    | 1.3.1 + erlang R15B                 | *port:* 5984 *listen on:* 127.0.0.1       |
+| clojure    | lein latest stable version          | includes java role                        |
 | docker     | latest from docker.io               |                                           |
-| dots       | setup dot files                     |                                           |
 | elixir     | 0.11.2                              | includes latest erlang                    |
 | erlang     | latest from erlang-solutions.com    |                                           |
 | go         | 1.2.0                               |                                           |
-| gradle     | 1.9                                 |                                           |
-| groovy     | 2.2.1                               |                                           |
+| gradle     | 1.9                                 | Includes java role                        |
+| groovy     | 2.2.1                               | Includes java role                        |
 | haskell    | haskell-platform from ubuntu's repo |                                           |
 | io         | Latest io deb from io website       |                                           |
-| java       | 7 + maven 3.1.1 + ant 1.9.2         |                                           |
+| java       | 7 + maven 3.1.1 + ant 1.9.3         |                                           |
 | lua        | 5.2 + luarocks                      |                                           |
 | mongo      | latest from 10\_gen repo            | *port:* 27017                             |
 | nodejs     | latest from ppa:chris.lea           |                                           |
@@ -66,48 +59,14 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | python     | 2.7 + pip and virtualenv            |                                           |
 | rabbitmq   | latest from official apt repo       | *port:* 5672                              |
 | racket     | 5.02 (January 2014)                 |                                           |
-| redis      | 2.8.2 (from ppa:chris.lea)          | *port:* 6379                              |
-| ruby       | rbenv + ruby 2.0                    |                                           |
-| ruby193    | rbenv + ruby 1.9.3                  |                                           |
+| redis      | from ppa:chris.lea                  | *port:* 6379                              |
+| ruby       | chruby + ruby 2.0                   |                                           |
+| ruby193    | chruby + ruby 1.9.3                 |                                           |
 | rust       | 0.8                                 |                                           |
-| scala      | 2.10.3 + sbt 0.13.0                 | includes java 7                           |
+| scala      | 2.10.3 + sbt 0.13.0                 | Includes java role                        |
 | sml        | smlnj 110.76                        |                                           |
+| tools      | editors, version control, and others|                                           |
 | zeromq     | 4.0.3                               |                                           |
-
-
-### Extending an already booted box
-
-Baseline commes with a command to provision more of the supported environment from inside the box.
-Use the `provision` command to do so.
-
-```bash
-vagrant ssh
-vagrant@vagrant $ provision redis lua
-```
-
-### Using your own dotfiles
-
-By default the manifest privison my own dotfiles (http://github.com/bltavares/dot-files) when you ask for it. You can change `puppet/config.yaml` to point to your dotfiles and have it loaded up.
-
-```bash
-baseline up redis dots
-```
-
-There a minor considerations to use your own dotfiles:
-
-* It must be a git repo
-* It must contain an excutable file called install.sh in the root of your repo. It will be called to setup your dotfiles configurations.
-* To make sure it doesn't run everytime you turn your vagrant on, add this to the end of the file:
-
-```bash
-touch $HOME/.baseline_dotfiles
-```
-    
-After making sure you have all the requirements in place, change on the file _puppet/config.yaml_ to point to your repo.
-
-### Setting ZSH as the default shell
-
-To set zsh as the default shell for your user, change the option under _puppet/config.yaml_.
 
 ### Working with multiple VMs
 
@@ -123,17 +82,9 @@ host_name=mongo use_default_box=false vagrant destroy
 host_name=dots-nodejs use_default_box=false vagrant destroy
 ```
 
-
-### Extending with your own puppet scripts
-
-Sometimes you will want to try out some different modules that are not currently in the project, or will want to set up a webserver for the project you are writing and have it configured and deployed with your project.
-Or maybe you just want to have some packages installed, or removed.
-
-You can achieve that extending the project using the _puppet/custom_ folder. There is an example file to guide you in the path to extend your vagrant machine.
-
 ### Debugging
 
-When building puppet scripts, a verbose output can help. In those cases we provide the `DEBUG` variable to increase the output, show debug messages and create dependency graphs
+When building the machine, a verbose output can help. In those cases we provide the `DEBUG` variable to increase the output.
 
 ```bash
 DEBUG=1 host_name=redis vagrant up
