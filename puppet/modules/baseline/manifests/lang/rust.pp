@@ -1,20 +1,27 @@
 class baseline::lang::rust {
 
-  $rust_package = 'rust_0.8-1_amd64.deb'
-  $rust_md5 = '7f2e19bc5cde47e143b7484ecda0207f'
+  $baseline_user = hiera('baseline_user', 'vagrant')
 
   exec {
     'download rust package':
-      command => "/usr/bin/wget -O ${rust_package} https://copy.com/voMAE7mI19Jf",
+      command => '/usr/bin/curl http://static.rust-lang.org/dist/rust-0.10-x86_64-unknown-linux-gnu.tar.gz | /bin/tar xz',
+      creates => '/opt/rust-0.10-x86_64-unknown-linux-gnu',
       cwd     => '/opt',
-      notify  => Exec['install rust'],
-      onlyif  => "/bin/bash -c '[ ! -f /opt/${rust_package} ] || ! md5sum /opt/${rust_package} | grep ${rust_md5} > /dev/null '",
-      timeout => 0,
       ;
-    'install rust':
-      command     => "/usr/bin/dpkg -i /opt/${rust_package}",
-      refreshonly => true,
-      require     => Exec['download rust package'],
+    'source rust in zshenv':
+      command => "/bin/echo '[[ -f /etc/profile.d/rust.sh ]] && source /etc/profile.d/rust.sh' >> /home/${baseline_user}/.zshenv",
+      unless  => "/bin/grep rust.sh /home/${baseline_user}/.zshenv 2> /dev/null",
+      ;
+  }
+
+  file {
+    '/etc/profile.d/rust.sh':
+      source => 'puppet:///modules/baseline/rust.sh',
+      ;
+    '/opt/rust':
+      target  => '/opt/rust-0.10-x86_64-unknown-linux-gnu',
+      ensure  => 'link',
+      require => Exec['download rust package'],
       ;
   }
 

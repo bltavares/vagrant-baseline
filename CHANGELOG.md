@@ -1,3 +1,7 @@
+Baseline 1.1.1
+
+* Update `rust` to 0.10
+
 Baseline 1.1.0
 
 * Add `docker` environment
