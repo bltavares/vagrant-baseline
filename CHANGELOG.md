@@ -1,3 +1,7 @@
+Baseline 1.1.2
+
+* Fix puppet manifest path
+
 Baseline 1.1.1
 
 * Update `rust` to 0.10

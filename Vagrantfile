@@ -95,6 +95,7 @@ Vagrant.configure("2") do |config|
     facter:  { fqdn: 'precise.vagrant' }
   }
 
+  config.vm.synced_folder "puppet", "/tmp/vagrant-puppet/manifests"
   config.vm.provision :puppet, options do |puppet|
     puppet.manifests_path = 'puppet'
     puppet.manifest_file  = 'init.pp'
