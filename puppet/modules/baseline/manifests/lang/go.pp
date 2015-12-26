@@ -4,7 +4,7 @@ class baseline::lang::go {
 
   exec {
     'download go':
-      command => '/usr/bin/curl https://go.googlecode.com/files/go1.2.linux-amd64.tar.gz | /bin/tar xz',
+      command => '/usr/bin/curl https://storage.googleapis.com/golang/go1.5.2.linux-amd64.tar.gz | /bin/tar xz',
       cwd     => '/opt',
       creates => '/opt/go',
       require => Package['curl'],
