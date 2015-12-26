@@ -1,3 +1,7 @@
+Baseline Next
+
+* Update `go` to 1.5.2
+
 Baseline 1.1.2
 
 * Fix puppet manifest path

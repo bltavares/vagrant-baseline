@@ -52,7 +52,7 @@ You can combine any of those names on the provision\_name, but it *must* be a va
 | dots       | setup dot files                     |                                           |
 | elixir     | 0.11.2                              | includes latest erlang                    |
 | erlang     | latest from erlang-solutions.com    |                                           |
-| go         | 1.2.0                               |                                           |
+| go         | 1.5.2                               |                                           |
 | gradle     | 1.9                                 |                                           |
 | groovy     | 2.2.1                               |                                           |
 | haskell    | haskell-platform from ubuntu's repo |                                           |
