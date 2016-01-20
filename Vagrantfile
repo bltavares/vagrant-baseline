@@ -100,7 +100,7 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = 'puppet'
     puppet.manifest_file  = 'init.pp'
     puppet.temp_dir = '/tmp/vagrant-puppet'
-    puppet.working_directory = '/tmp/vagrant-puppet/manifests'
+    puppet.module_path = ["puppet/modules","puppet/modules/vendors","puppet/custom/vendors"]
   end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
